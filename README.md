@@ -7,6 +7,13 @@
 
 ### UI architecture
 
+### Tech Stack
+* Front-end
+    * https://nextjs.org/
+    * https://www.rainbowkit.com/
+    * https://flowbite-react.com/
+    * https://wagmi.sh/
+
 #### Workflow
 
 ##### Contract creation
