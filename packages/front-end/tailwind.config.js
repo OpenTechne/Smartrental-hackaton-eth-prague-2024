@@ -15,6 +15,7 @@ export default {
       colors: {
         fairGreen: "#C0ED54",
         capuccino: "#FCF1F0",
+        grayText: "#767676",
       },
     },
   },

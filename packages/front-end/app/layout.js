@@ -1,7 +1,7 @@
 "use client";
 import { ChakraProvider } from "@chakra-ui/react";
 
-import { Inter } from "next/font/google";
+import { Mulish } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -31,7 +31,7 @@ const config = getDefaultConfig({
   ssr: false, // If your dApp uses server side rendering (SSR)
 });
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Mulish({ subsets: ["latin"] });
 
 const leftArrow = () => {
   return (
@@ -131,8 +131,8 @@ export default function RootLayout({ children }) {
                 {/* </div> */}
                 {/* </div> */}
                 <div
-                  className={"w-full flex justify-center"}
-                  style={{ height: "100vh" }}
+                  className="flex justify-center items-center"
+                  // style={{ height: "100vh" }}
                 >
                   {children}
                 </div>

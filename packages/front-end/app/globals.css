@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 /* :root {
   --foreground-rgb: 1, 0, 0;
@@ -16,10 +17,22 @@
   }
 } */
 
+html,
 body {
+  font-family: "Mulish";
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   color: rgb(var(--foreground-rgb));
   background: #ffffff;
   height: 100vh;
+  margin-bottom: 100px;
 }
 
 @layer utilities {
