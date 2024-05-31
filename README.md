@@ -4,6 +4,11 @@
 * Yarn
   * run: `npm install --global yarn`
 
+### Install dependencies
+```bash
+yarn 
+```
+
 ### Front end commands
 Start development server:
 ```bash
