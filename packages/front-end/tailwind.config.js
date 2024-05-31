@@ -15,6 +15,10 @@ export default {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        "fair-green": "#C0ED54",
+        capuccino: "#FCF1F0",
+      },
     },
   },
   plugins: [

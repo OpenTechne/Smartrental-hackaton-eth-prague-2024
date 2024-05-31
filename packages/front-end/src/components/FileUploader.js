@@ -14,10 +14,10 @@ const FileUploader = () => {
   });
 
   return (
-    <>
+    <div className="w-[660px] h-[440px] bg-capuccino rounded-3xl relative">
       <div
         {...getRootProps()}
-        className="w-full mt-10 p-4 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer mb-2"
+        className="m-[70px] p-4 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer mb-2"
       >
         <input {...getInputProps()} />
         {isDragActive ? (
@@ -40,7 +40,9 @@ const FileUploader = () => {
           <p>No file uploaded</p>
         )}
       </div>
-    </>
+
+      <div className="w-full h-[80px] bg-fair-green absolute bottom-0 rounded-b-3xl"></div>
+    </div>
   );
 };
 
