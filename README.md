@@ -8,17 +8,3 @@
 ```bash
 yarn 
 ```
-
-### Front end commands
-Start development server:
-```bash
-yarn next:dev
-```
-Start production server:
-```bash
-yarn next:start
-```
-Build:
-```bash
-yarn next:build
-```
