@@ -23,7 +23,8 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "viem": "2.x",
-    "wagmi": "^2.9.8"
+    "wagmi": "^2.9.8",
+    "react-hook-form": "^7.51.5"
   },
   "devDependencies": {
     "postcss": "^8",
