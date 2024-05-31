@@ -91,14 +91,14 @@ export default function RootLayout({ children }) {
                   className={`${
                     isMenuOpen ? "w-64" : "w-14"
                   } bg-gray-800 text-white transition-width duration-300 flex h-full flex-col`}
-                >                
+                >
                   <button
                     className="p-4 text-white focus:outline-none"
                     onClick={toggleMenu}
                   >
                     {isMenuOpen ? leftArrow() : rightArrow()}
                   </button>
-                  <div className="h-full flex  flex-col justify-between">
+                  <div className="h-full flex flex-col justify-between w-full">
                     <nav className={`${isMenuOpen ? "block" : "hidden"} mt-4`}>
                       <ul>
                         <li className="p-4">
@@ -128,7 +128,7 @@ export default function RootLayout({ children }) {
                     </div>
                   </div>
                 </div>
-                <div className={inter.className}>{children}</div>
+                <div className={"w-full"}>{children}</div>
               </div>
             </RainbowKitProvider>
           </QueryClientProvider>
