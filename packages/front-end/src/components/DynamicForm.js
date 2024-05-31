@@ -11,10 +11,18 @@ import {
   Box,
 } from "@chakra-ui/react";
 
+import PageWrapper from "./PageWrapper";
+
 const DynamicForm = ({ fields, sections, onSubmit, columns }) => {
   const { register, handleSubmit } = useForm();
 
-  return (
+  const button = (
+    <Button type="submit" colorScheme="blue">
+      Submit
+    </Button>
+  );
+
+  const form = (
     <form onSubmit={handleSubmit(onSubmit)}>
       {sections.map((section, sectionIndex) => (
         <Box key={sectionIndex} mb={8}>
@@ -103,13 +111,10 @@ const DynamicForm = ({ fields, sections, onSubmit, columns }) => {
           </Grid>
         </Box>
       ))}
-      <Box>
-        <Button type="submit" colorScheme="blue">
-          Submit
-        </Button>
-      </Box>
     </form>
   );
+
+  return <PageWrapper bottom={button}>{form}</PageWrapper>;
 };
 
 export default DynamicForm;

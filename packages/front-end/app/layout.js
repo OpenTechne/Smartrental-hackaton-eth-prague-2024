@@ -6,7 +6,7 @@ import "./globals.css";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { ThemeModeScript } from "flowbite-react";
+// import { ThemeModeScript } from "flowbite-react";
 
 // RainbowKit imports
 import "@rainbow-me/rainbowkit/styles.css";
@@ -22,6 +22,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
+import theme from "./../chakra-theme.js";
 // RainbowKit config
 const config = getDefaultConfig({
   appName: "My RainbowKit App", // TODO: TBD
@@ -79,16 +80,14 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <head>
-        <ThemeModeScript />
-      </head>
+      <head></head>
       <body>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider>
-              <ChakraProvider>
+              <ChakraProvider theme={theme}>
                 {/* main container */}
-                <div className="flex h-screen">
+                {/* <div className="flex h-screen">
                   <div
                     className={`${
                       isMenuOpen ? "w-64" : "w-14"
@@ -120,22 +119,24 @@ export default function RootLayout({ children }) {
                             </Link>
                           </li>
                           {/* Add more menu items as needed */}
-                        </ul>
-                      </nav>
-                      <div
-                        className={`${
-                          isMenuOpen ? "block" : "hidden"
-                        } flex content-center justify-center mb-5`}
-                      >
-                        <ConnectButton
-                          accountStatus="address"
-                          chainStatus="none"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className={"w-full"}>{children}</div>
+                {/* </ul> */}
+                {/* </nav> */}
+                {/* <div
+                  className={`${
+                    isMenuOpen ? "block" : "hidden"
+                  } flex content-center justify-center mb-5`}
+                >
+                  <ConnectButton accountStatus="address" chainStatus="none" />
+                </div> */}
+                {/* </div> */}
+                {/* </div> */}
+                <div
+                  className={"w-full flex justify-center"}
+                  style={{ height: "100vh" }}
+                >
+                  {children}
                 </div>
+                {/* </div> */}
               </ChakraProvider>
             </RainbowKitProvider>
           </QueryClientProvider>

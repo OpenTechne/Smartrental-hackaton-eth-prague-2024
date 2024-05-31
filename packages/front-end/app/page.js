@@ -13,20 +13,16 @@ export default function Home() {
     console.log("Form submitted:", data);
   };
 
-  return (
-    <main className="flex min-h-screen flex-col p-24 w-full">
-      {/* <FileUploader /> */}
-      <Text noOfLines={1}>
-        "The quick brown fox jumps over the lazy dog" is an English-language
-        pangram—a sentence that contains all of the letters of the English
-        alphabet. Owing to its existence, Chakra was created.
-      </Text>
-      <DynamicForm
-        fields={RENTAL_FORM_FIELDS}
-        sections={RENTAL_FORM_SECTIONS}
-        onSubmit={handleSubmit}
-        columns={2}
-      />
-    </main>
+  const contract = false;
+
+  return contract ? (
+    <DynamicForm
+      fields={RENTAL_FORM_FIELDS}
+      sections={RENTAL_FORM_SECTIONS}
+      onSubmit={handleSubmit}
+      columns={2}
+    />
+  ) : (
+    <FileUploader />
   );
 }

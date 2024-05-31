@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
+import { Button } from "@chakra-ui/react";
+import PageWrapper from "./PageWrapper";
+
 const FileUploader = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
@@ -13,8 +16,24 @@ const FileUploader = () => {
     accept: ".pdf, .doc, .docx",
   });
 
-  return (
-    <div className="w-[660px] h-[440px] bg-capuccino rounded-3xl relative">
+  const buttons = (
+    <div className="mr-[40px]">
+      <Button
+        className="m-[10px]"
+        variant="outline"
+        colorScheme="green"
+        bg="white"
+      >
+        Cancel
+      </Button>
+      <Button variant="outline" colorScheme="orange" bg="white">
+        Upload
+      </Button>
+    </div>
+  );
+
+  const body = (
+    <div className="w-full h-full bg-blue">
       <div
         {...getRootProps()}
         className="m-[70px] p-4 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer mb-2"
@@ -40,10 +59,10 @@ const FileUploader = () => {
           <p>No file uploaded</p>
         )}
       </div>
-
-      <div className="w-full h-[80px] bg-fair-green absolute bottom-0 rounded-b-3xl"></div>
     </div>
   );
+
+  return <PageWrapper bottom={buttons}>{body}</PageWrapper>;
 };
 
 export default FileUploader;
