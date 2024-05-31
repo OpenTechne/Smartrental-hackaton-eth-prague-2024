@@ -81,49 +81,55 @@ export default function RootLayout({ children }) {
       <head>
         <ThemeModeScript />
       </head>
-      <body className="flex h-screen">
+      <body>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider>
-              <div
-                className={`${
-                  isMenuOpen ? "w-64" : "w-14"
-                } bg-gray-800 text-white transition-width duration-300 flex h-full flex-col`}
-              >
-                <button
-                  className="p-4 text-white focus:outline-none"
-                  onClick={toggleMenu}
-                >
-                  {isMenuOpen ? leftArrow() : rightArrow()}
-                </button>
-                <div className="h-full flex  flex-col justify-between">
-                  <nav className={`${isMenuOpen ? "block" : "hidden"} mt-4`}>
-                    <ul>
-                      <li className="p-4">
-                        <Link href="/">Home</Link>
-                      </li>
-                      <li className="p-4">
-                        <Link href="/about">Find Your Space</Link>
-                      </li>
-                      <li className="p-4">
-                        <Link href="/contact">Spaces For Rent</Link>
-                      </li>
-                      <li className="p-4">
-                        <Link href="/create_contract">Create a contract</Link>
-                      </li>
-                      {/* Add more menu items as needed */}
-                    </ul>
-                  </nav>
-                  <div
-                    className={`${
-                      isMenuOpen ? "block" : "hidden"
-                    } flex content-center justify-center mb-5`}
+              {/* main container */}
+              <div className="flex h-screen">
+                <div
+                  className={`${
+                    isMenuOpen ? "w-64" : "w-14"
+                  } bg-gray-800 text-white transition-width duration-300 flex h-full flex-col`}
+                >                
+                  <button
+                    className="p-4 text-white focus:outline-none"
+                    onClick={toggleMenu}
                   >
-                    <ConnectButton />
+                    {isMenuOpen ? leftArrow() : rightArrow()}
+                  </button>
+                  <div className="h-full flex  flex-col justify-between">
+                    <nav className={`${isMenuOpen ? "block" : "hidden"} mt-4`}>
+                      <ul>
+                        <li className="p-4">
+                          <Link href="/">Home</Link>
+                        </li>
+                        <li className="p-4">
+                          <Link href="/about">Find Your Space</Link>
+                        </li>
+                        <li className="p-4">
+                          <Link href="/contact">Spaces For Rent</Link>
+                        </li>
+                        <li className="p-4">
+                          <Link href="/create_contract">Create a contract</Link>
+                        </li>
+                        {/* Add more menu items as needed */}
+                      </ul>
+                    </nav>
+                    <div
+                      className={`${
+                        isMenuOpen ? "block" : "hidden"
+                      } flex content-center justify-center mb-5`}
+                    >
+                      <ConnectButton
+                        accountStatus="address"
+                        chainStatus="none"
+                      />
+                    </div>
                   </div>
                 </div>
+                <div className={inter.className}>{children}</div>
               </div>
-              <div className={inter.className}>{children}</div>
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>
