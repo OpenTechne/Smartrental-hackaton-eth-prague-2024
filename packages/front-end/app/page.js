@@ -1,6 +1,6 @@
 "use client";
-
-import { Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import DynamicForm from "../src/components/DynamicForm";
 import FileUploader from "../src/components/FileUploader";
 import {
@@ -13,7 +13,14 @@ export default function Home() {
     console.log("Form submitted:", data);
   };
 
-  const contract = false;
+  const [contract, setContract] = useState(undefined);
+
+  // const contract = true;
+  if (contract) {
+    console.log(contract);
+  } else {
+    console.log("no contract");
+  }
 
   return contract ? (
     <DynamicForm
@@ -23,6 +30,6 @@ export default function Home() {
       columns={2}
     />
   ) : (
-    <FileUploader />
+    <FileUploader setContract={setContract} />
   );
 }

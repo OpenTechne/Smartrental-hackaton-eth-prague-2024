@@ -2,8 +2,9 @@ import Image from "next/image";
 
 const PageWrapper = ({ children, bottom }) => {
   return (
-    <div className=" relative flex flex-col mr-[100px] ml-[100px]  pr-[30px] pl-[30px] min-w-[660px] min-h-[440px] bg-capuccino rounded-3xl relative justify-center items-center self-center">
+    <div className=" relative flex flex-col mb-[100px] mr-[100px] ml-[100px] mt-[100px] pr-[60px] pl-[60px] pt-[90px] pb-[90px] min-w-[660px] max-w-[800px] bg-capuccino rounded-3xl justify-center items-center self-center">
       <Image
+        alt="Smartrental"
         className="absolute top-0"
         src="/Logo.svg"
         width="250"

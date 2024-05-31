@@ -17,7 +17,7 @@ const DynamicForm = ({ fields, sections, onSubmit, columns }) => {
   const { register, handleSubmit } = useForm();
 
   const button = (
-    <Button type="submit" colorScheme="blue">
+    <Button type="submit" variant="outline" bg="#ffffff" className="mr-[40px]">
       Submit
     </Button>
   );
