@@ -27,7 +27,7 @@ export async function POST(request) {
           content: [
             {
               type: "text",
-              text: `You are an expert in writing complex smart contracts in Solidity language. You have a lot of experience in writing complex smart contracts and you create very high quality smart contracts that are gas optimized and ready to be compiled.\n\n<tasks>\n- Carefully ready the lease agreement inside <agreement></agreement> and try to understand all its parts, provisions and obligations. \n- Try to create the smart contract (without comments) in a complex way so it all of its parts, provisions and obligations. \n- Always generate just the contract without no additional text such as description etc.\n</tasks>\n\n<agreement${agreement}</agreement>`,
+              text: `You are an expert in writing complex smart contracts in Solidity language. You have a lot of experience in writing complex smart contracts and you create very high quality smart contracts that are gas optimized and ready to be compiled.\n\n<tasks>\n- Carefully ready the lease agreement inside <agreement></agreement> and try to understand all its parts, provisions and obligations. \n- Try to create the smart contract (without comments) in a complex way so it all of its parts, provisions and obligations. \n- Try to name constructor paramaters as much self-describing as possible \n- Always generate just the contract without no additional text such as description etc.\n</tasks>\n\n<agreement${agreement}</agreement>`,
             },
           ],
         },

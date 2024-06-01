@@ -34,15 +34,23 @@ export default function Home() {
     const paramsString = match[1].trim();
     const params = paramsString
       .split(",")
-      .map((param) => param.trim().split(" "));
+      .map((param) => param.trim().split(/\s+/));
 
-    const formFields = params.map(([type, name]) => {
+    const formFields = params.map((param) => {
+      let [type, name] = param;
+
+      // Handle multiple words in type (e.g., "address payable")
+      if (param.length > 2) {
+        type = param.slice(0, -1).join(" ");
+        name = param[param.length - 1];
+      }
+
       let fieldType = "input";
       if (type === "bool") {
         fieldType = "checkbox";
       } else if (type === "uint256") {
         fieldType = "number";
-      } else if (type === "address") {
+      } else if (type.startsWith("address")) {
         fieldType = "input";
       }
 

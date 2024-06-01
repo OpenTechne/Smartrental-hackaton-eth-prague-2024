@@ -9,6 +9,7 @@ import {
   Button,
   Grid,
   Box,
+  Text,
 } from "@chakra-ui/react";
 
 import PageWrapper from "./PageWrapper";
@@ -37,6 +38,7 @@ const DynamicForm = ({ fields, onSubmit, columns }) => {
                   >
                     <FormLabel>{field.label}</FormLabel>
                     <Input
+                      background="white"
                       {...register(field.name)}
                       defaultValue={field.value}
                     />
@@ -51,6 +53,7 @@ const DynamicForm = ({ fields, onSubmit, columns }) => {
                   >
                     <FormLabel>{field.label}</FormLabel>
                     <Input
+                      background="white"
                       type="number"
                       {...register(field.name)}
                       defaultValue={field.value}
@@ -66,21 +69,8 @@ const DynamicForm = ({ fields, onSubmit, columns }) => {
                   >
                     <FormLabel>{field.label}</FormLabel>
                     <Input
+                      background="white"
                       type="date"
-                      {...register(field.name)}
-                      defaultValue={field.value}
-                    />
-                  </FormControl>
-                );
-              case "textarea":
-                return (
-                  <FormControl
-                    key={field.name}
-                    id={field.name}
-                    isRequired={field.required}
-                  >
-                    <FormLabel>{field.label}</FormLabel>
-                    <Textarea
                       {...register(field.name)}
                       defaultValue={field.value}
                     />
@@ -106,6 +96,10 @@ const DynamicForm = ({ fields, onSubmit, columns }) => {
             }
           })}
         </Grid>
+        <Text>
+          For dates use unix timestamp value (number) and specify amounts in
+          Ether.
+        </Text>
       </Box>
     </form>
   );
