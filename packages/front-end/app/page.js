@@ -35,7 +35,7 @@ export default function Home() {
     />
   ) : (
     // <FileUploader setContract={setContract} />
-    // <LoadingPage />
-    <UserEnv />
+    <LoadingPage />
+    // <UserEnv />
   );
 }
