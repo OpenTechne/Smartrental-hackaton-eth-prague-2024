@@ -6,7 +6,7 @@ import PageWrapper from "./PageWrapper";
 import Image from "next/image";
 import useDocxFile from "../hooks/useDocxFile";
 
-const FileUploader = ({ setContract }) => {
+const FileUploader = ({ onUpload }) => {
   const { document, handleFileChange, resetDocument } = useDocxFile();
 
   const onDrop = (acceptedFiles) => {
@@ -34,7 +34,7 @@ const FileUploader = ({ setContract }) => {
         colorScheme="black"
         isDisabled={!document?.content}
         bg="white"
-        onClick={() => setContract(document)}
+        onClick={() => onUpload(document)}
       >
         Generate
       </Button>

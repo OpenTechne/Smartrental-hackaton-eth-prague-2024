@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { SUPPORTED_CHAINS } from "./../../constants";
 
-import { createWalletClient, http, publicActions } from "viem";
+import { createWalletClient, http, publicActions} from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 export async function POST(request) {
@@ -57,7 +57,6 @@ export async function POST(request) {
         .bytecode.object;
     const abi =
       output.contracts.source[Object.keys(output.contracts.source)[0]].abi;
-    console.log(process.env.BE_ACCOUNT_PK)
 
     // Init Wallet client
     const account = privateKeyToAccount(process.env.BE_ACCOUNT_PK);
