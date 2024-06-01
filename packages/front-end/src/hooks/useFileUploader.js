@@ -4,7 +4,7 @@ import { pdfjs } from "react-pdf";
 import mammoth from "mammoth";
 import TurndownService from "turndown";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.min.mjs`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const TOAST_DURATION = 3000;
 

@@ -63,9 +63,7 @@ const FileUploader = ({ setContract }) => {
             <Image alt="cloud" src="/cloud.svg" width="48" height="48" />
             <div className="flex flex-col justify-center items-center mt-[20px]">
               <p>Drag and drop file here or click to browse</p>
-              <p className="text-grayText">
-                JPG, PNG or PDF, file size no more than 10MB
-              </p>
+              <p className="text-grayText">Word or PDF</p>
             </div>
           </div>
         )}
