@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
 
 import { Button } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
 import Image from "next/image";
-import useFileUploader from "../hooks/useFileUploader";
+import useDocxFile from "../hooks/useDocxFile";
 
 const FileUploader = ({ setContract }) => {
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const { isUploading, document, handleFileChange } = useFileUploader();
+  const { document, handleFileChange, resetDocument } = useDocxFile();
 
   const onDrop = (acceptedFiles) => {
     handleFileChange(acceptedFiles);
-    setUploadedFiles(acceptedFiles);
-  };
-
-  const uploadContract = () => {
-    setContract(uploadedFiles);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: ".pdf, .doc, .docx",
   });
-
-  useEffect(() => {
-    console.log("isUploading", isUploading, document);
-  }, [isUploading, document]);
 
   const buttons = (
     <div className="mr-[40px]">
@@ -35,16 +25,18 @@ const FileUploader = ({ setContract }) => {
         variant="outline"
         colorScheme="black"
         bg="white"
+        onClick={() => resetDocument()}
       >
         Cancel
       </Button>
       <Button
         variant="outline"
-        color="grayText"
+        colorScheme="black"
+        isDisabled={!document?.content}
         bg="white"
-        onClick={() => uploadContract()}
+        onClick={() => setContract(document)}
       >
-        Upload
+        Generate
       </Button>
     </div>
   );
@@ -63,23 +55,19 @@ const FileUploader = ({ setContract }) => {
             <Image alt="cloud" src="/cloud.svg" width="48" height="48" />
             <div className="flex flex-col justify-center items-center mt-[20px]">
               <p>Drag and drop file here or click to browse</p>
-              <p className="text-grayText">
-                JPG, PNG or PDF, file size no more than 10MB
-              </p>
+              <p className="text-grayText">DOCX, file size no more than 10MB</p>
             </div>
           </div>
         )}
       </div>
       <div className="file-list">
-        {uploadedFiles.length > 0 && (
+        {document?.content && (
           <>
             <h3>Uploaded Files:</h3>
             <ul>
-              {uploadedFiles.map((file, index) => (
-                <li key={index}>
-                  <span>{file.name}</span>
-                </li>
-              ))}
+              <li key={document.name}>
+                <span>{document.name}</span>
+              </li>
             </ul>
           </>
         )}
