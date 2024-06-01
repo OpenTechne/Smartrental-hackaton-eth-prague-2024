@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { SUPPORTED_CHAINS } from "./../../constants";
 
-import { createWalletClient, http, publicActions} from "viem";
+import { createWalletClient, http, publicActions } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 export async function POST(request) {
@@ -11,7 +11,7 @@ export async function POST(request) {
 
     if (!chainName || !contract) {
       return NextResponse.json(
-        { message: "Missing chainName  or contract parameter" },
+        { message: "Missing chainName or contract parameter" },
         { status: 400 }
       );
     }
@@ -70,14 +70,32 @@ export async function POST(request) {
     const hash = await client.deployContract({
       abi,
       bytecode: bytecode,
+      args: constructorArguments,
     });
+    const receipt = await client.waitForTransactionReceipt({ hash });
 
-    console.log(hash);
+    if (receipt.status !== "success") {
+      return NextResponse.json(
+        { message: "Error when broadcasting deployment transaction" },
+        { status: 400 }
+      );
+    }
+
+    // If chain has block explorer generate link
+    let linkToBlockExplorer = hash;
+    if ("blockExplorers" in chain) {
+      linkToBlockExplorer = `${chain.blockExplorers.default.url}/tx/${hash}`;
+    }
+    console.log(receipt);
 
     return NextResponse.json(
       {
-        message: "Contract deployed  successfully",
-        data: { abi: abi, address: "address" },
+        message: "Contract deployed successfully",
+        data: {
+          hash: hash,
+          linkToBlockExplorer: linkToBlockExplorer,
+          abi: abi,
+        },
       },
       { status: 200 }
     );
