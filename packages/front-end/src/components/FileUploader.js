@@ -4,10 +4,10 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
 import Image from "next/image";
-import useDocxFile from "../hooks/useDocxFile";
+import useFileUploader from "../hooks/useFileUploader";
 
 const FileUploader = ({ onUpload }) => {
-  const { document, handleFileChange, resetDocument } = useDocxFile();
+  const { document, handleFileChange, resetDocument } = useFileUploader();
 
   const onDrop = (acceptedFiles) => {
     handleFileChange(acceptedFiles);
@@ -55,7 +55,7 @@ const FileUploader = ({ onUpload }) => {
             <Image alt="cloud" src="/cloud.svg" width="48" height="48" />
             <div className="flex flex-col justify-center items-center mt-[20px]">
               <p>Drag and drop file here or click to browse</p>
-              <p className="text-grayText">DOCX, file size no more than 10MB</p>
+              <p className="text-grayText">Word or PDF</p>
             </div>
           </div>
         )}
