@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { SUPPORTED_CHAINS } from "./../../constants";
 
-import { createWalletClient, http, publicActions} from "viem";
+import {
+  createWalletClient,
+  http,
+  publicActions,
+  encodeAbiParameters,
+} from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 export async function POST(request) {
@@ -11,7 +16,7 @@ export async function POST(request) {
 
     if (!chainName || !contract) {
       return NextResponse.json(
-        { message: "Missing chainName  or contract parameter" },
+        { message: "Missing chainName or contract parameter" },
         { status: 400 }
       );
     }
@@ -70,14 +75,65 @@ export async function POST(request) {
     const hash = await client.deployContract({
       abi,
       bytecode: bytecode,
+      args: constructorArguments,
     });
+    const receipt = await client.waitForTransactionReceipt({ hash });
 
-    console.log(hash);
+    if (receipt.status !== "success") {
+      return NextResponse.json(
+        { message: "Error when broadcasting deployment transaction" },
+        { status: 400 }
+      );
+    }
+
+    // If chain has block explorer generate links
+    let linkToBlockExplorer = hash;
+    let linkToContract = "";
+
+    if ("blockExplorers" in chain) {
+      linkToBlockExplorer = `${chain.blockExplorers.default.url}/tx/${hash}`;
+      linkToContract = `${chain.blockExplorers.default.url}/address/${receipt.contractAddress}`;
+
+      // Verify contract
+      // Search constructor abi in the abi
+      // let constructorInputs = [];
+      // for (const _function of abi) {
+      //   if (_function.type === "constructor") {
+      //     constructorInputs = _function.inputs;
+      //   }
+      // }
+      // const constructorArgs = encodeAbiParameters(
+      //   constructorInputs,
+      //   constructorArguments
+      // );
+      // const verificationResponse = await fetch(
+      //   `${chain.blockExplorers.default.apiUrl}
+      //     ?module=contract
+      //     &action=verifysourcecode
+      //     &apikey=${process.env.ETHERSCAN_API_TOKEN}
+      //     &chainId=${chain.id}
+      //     &sourceCode=${compilerInput}
+      //     &constructorArguments=${constructorArgs}
+      //     &contractaddress=${receipt.contractAddress}
+      //     &compilerversion=v0.8.19+commit.7dd6d404
+      //     &contractname=contracts/source:${
+      //       Object.keys(output.contracts.source)[0]
+      //     }
+      //     `,
+      //   { method: "POST" }
+      // );
+    }
 
     return NextResponse.json(
       {
-        message: "Contract deployed  successfully",
-        data: { abi: abi, address: "address" },
+        message: "Contract deployed successfully",
+        data: {
+          hash: hash,
+          linkToBlockExplorer: linkToBlockExplorer,
+          linkToContract: linkToContract,
+          contractAddress: receipt.contractAddress,
+          abi: abi,
+        },
       },
       { status: 200 }
     );
