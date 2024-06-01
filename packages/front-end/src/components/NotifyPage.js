@@ -12,6 +12,7 @@ const NotifyPage = ({ contractDeployData }) => {
         variant="outline"
         colorScheme="black"
         bg="white"
+        onClick={onClick}
       >
         Notify
       </Button>
@@ -41,7 +42,7 @@ const NotifyPage = ({ contractDeployData }) => {
       <Input
         placeholder="Enter your tenant’s email here..."
         size="lg"
-        className="text-center my-[20px]"
+        className="text-center my-[20px] border-black"
         width="350px"
       />
     </div>
