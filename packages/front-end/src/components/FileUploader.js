@@ -11,7 +11,12 @@ const FileUploader = ({ onUpload }) => {
 
   const onDrop = (acceptedFiles) => {
     handleFileChange(acceptedFiles);
+    setUploadedFiles(acceptedFiles);
   };
+
+  // const uploadContract = () => {
+  //   setContract(uploadedFiles);
+  // };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
