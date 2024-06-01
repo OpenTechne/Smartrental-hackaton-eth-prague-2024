@@ -7,7 +7,7 @@ import { privateKeyToAccount } from "viem/accounts";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { chainName, contract } = body;
+    const { chainName, contract, constructorArguments } = body;
 
     if (!chainName || !contract) {
       return NextResponse.json(
@@ -58,6 +58,7 @@ export async function POST(request) {
     const abi =
       output.contracts.source[Object.keys(output.contracts.source)[0]].abi;
     console.log(process.env.BE_ACCOUNT_PK)
+
     // Init Wallet client
     const account = privateKeyToAccount(process.env.BE_ACCOUNT_PK);
     const client = createWalletClient({
