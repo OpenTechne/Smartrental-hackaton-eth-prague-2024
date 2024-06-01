@@ -19,6 +19,34 @@ export default function Home() {
 
   const [contract, setContract] = useState(undefined);
 
+  const generateContract = async (document) => {
+    console.log("Generating contract from document:", document);
+    // setContract(document);
+    try {
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          info: "Random text",
+          agreement: document.content,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to generate smart contract");
+      }
+
+      const data = await res.json();
+      setResponse(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // const contract = true;
   if (contract) {
     console.log(contract);
@@ -34,7 +62,7 @@ export default function Home() {
       columns={2}
     />
   ) : (
-    <FileUploader setContract={setContract} />
+    <FileUploader onUpload={generateContract} />
     // <LoadingPage />
     // <UserEnv />
   );
