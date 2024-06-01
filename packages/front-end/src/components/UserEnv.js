@@ -21,7 +21,7 @@ const UserEnv = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-capuccino flex flex-col">
+    <div className="w-screen h-screen bg-capuccino flex ">
       <Header setActiveSection={setActiveSection} />
       {renderSection()}
     </div>

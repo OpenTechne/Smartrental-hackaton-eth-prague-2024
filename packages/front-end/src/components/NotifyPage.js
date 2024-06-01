@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Input } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
-const NotifyPage = ({ setTenantEmail }) => {
+const NotifyPage = ({ setTenantEmail, onClick }) => {
   const buttons = (
     <div className="mr-[40px]">
       <Button
@@ -10,6 +10,7 @@ const NotifyPage = ({ setTenantEmail }) => {
         variant="outline"
         colorScheme="black"
         bg="white"
+        onClick={onClick}
       >
         Notify
       </Button>
@@ -36,7 +37,7 @@ const NotifyPage = ({ setTenantEmail }) => {
       <Input
         placeholder="Enter your tenant’s email here..."
         size="lg"
-        className="text-center my-[20px]"
+        className="text-center my-[20px] border-black"
         width="350px"
       />
     </div>
