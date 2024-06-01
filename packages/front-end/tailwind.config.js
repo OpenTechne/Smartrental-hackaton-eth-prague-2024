@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        mulish: ["Mulish", "sans-serif"],
+      },
       backgroundImage: {
         grid: "url('/Bg-image.webp')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

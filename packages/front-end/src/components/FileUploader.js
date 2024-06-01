@@ -27,6 +27,7 @@ const FileUploader = ({ onUpload }) => {
           colorScheme="black"
           bg="white"
           onClick={() => resetDocument()}
+          fontFamily="mulish"
         >
           Cancel
         </Button>

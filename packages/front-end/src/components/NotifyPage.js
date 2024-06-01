@@ -4,7 +4,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 import { Button, Input } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
-const NotifyPage = ({ contractDeployData }) => {
+const NotifyPage = ({ contractDeployData, onClick }) => {
   const buttons = (
     <div className="mr-[40px]">
       <Button
@@ -34,7 +34,8 @@ const NotifyPage = ({ contractDeployData }) => {
       </div>
 
       <Link href={contractDeployData.contractLink} isExternal>
-        {contractDeployData.contractAddress}<ExternalLinkIcon mx="2px" />
+        {contractDeployData.contractAddress}
+        <ExternalLinkIcon mx="2px" />
       </Link>
       <p className="text-center mt-[15px]">
         You now may add the tenant’s email and notify them.

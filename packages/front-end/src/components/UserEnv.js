@@ -4,7 +4,7 @@ import Contract from "../components/Contract";
 import Message from "../components/Message";
 import Requests from "../components/Requests";
 
-const UserEnv = () => {
+const UserEnv = (contract) => {
   const [activeSection, setActiveSection] = useState("home");
 
   const renderSection = () => {
@@ -16,7 +16,7 @@ const UserEnv = () => {
       case "requests":
         return <Requests />;
       default:
-        return <Contract />;
+        return <Contract contract={contract} />;
     }
   };
 
