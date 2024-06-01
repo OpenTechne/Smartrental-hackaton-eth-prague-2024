@@ -14,6 +14,23 @@ export default function Home() {
 
   const [contract, setContract] = useState(undefined);
   const [fields, setFields] = useState([]);
+  const [contractDeployData, setContractDeployData] = useState({
+    //TODO: Change this to default data (empty)
+    contractLink:
+      "https://sepolia.lineascan.build/address/0x72214e2ca2a2da93dae89a9d87a5515d6e836001",
+    contractAddress: "0x72214e2ca2a2da93dae89a9d87a5515d6e836001",
+    abi: [
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "_landlord",
+            type: "address",
+          },
+        ],
+      },
+    ],
+  });
   const [view, setView] = useState("UPLOAD");
 
   function getFormFieldsFromContract(contractCode) {
@@ -119,7 +136,7 @@ export default function Home() {
           />
         );
       case "NOTIFY":
-        return <NotifyPage />;
+        return <NotifyPage contractDeployData={contractDeployData} />;
       case "USER_ENV":
         return <UserEnv />;
       case "LOGIN":

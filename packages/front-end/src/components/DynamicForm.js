@@ -20,6 +20,7 @@ const DynamicForm = ({ fields, columns, contract, setView }) => {
 
   const handleSubmit = async () => {
     const values = getValues();
+    console.log(values);
     try {
       const res = await fetch("/api/deploy", {
         method: "POST",
