@@ -3,6 +3,7 @@ pragma solidity 0.8.19;
 
 contract ResidentialLeaseAgreement {
     enum Status {
+        Init,
         Pending,
         Acepted,
         Terminated
@@ -37,19 +38,26 @@ contract ResidentialLeaseAgreement {
         compensation = _compensation;
     }
 
-    function acceptContract() external payable {
+    function acceptContractLandLord() external {
+        require(status == Status.Init, 'Contract should be in Init status');
+        require(msg.sender == landlord, 'Only landlord can accept contract');
+        status = Status.Init;
+    }
+
+    function acceptContractAndStartRental() external payable {
         require(status == Status.Pending, 'Contract should be pending');
         require(msg.sender == tenant, 'Only tenant can acept contract');
         require(msg.value == downPayment + monthlyRent, 'Tenant should deposit downPayment plus first month rent');
+        payable(landlord).transfer(monthlyRent);
         status = Status.Acepted;
         startDate = block.timestamp;
     }
 
     function payRent() external payable {
+        require(status == Status.Acepted, 'Contract should be acepted');
         require(msg.sender == tenant, 'Only tenant can pay rent');
         require(msg.value == monthlyRent, 'Incorrect rent amount');
         require(address(this).balance >= monthlyRent + downPayment, 'Security Deposit should be always present');
-        require(status == Status.Acepted, 'Contract should be acepted');
         totalPayed += monthlyRent;
         payable(landlord).transfer(monthlyRent);
     }
