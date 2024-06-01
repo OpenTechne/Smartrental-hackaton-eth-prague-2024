@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.22;
+pragma solidity 0.8.19;
 
 contract ResidentialLeaseAgreement {
     enum Status {
@@ -41,6 +41,7 @@ contract ResidentialLeaseAgreement {
         require(status == Status.Pending, 'Contract should be pending');
         require(msg.sender == tenant, 'Only tenant can acept contract');
         require(msg.value == downPayment + monthlyRent, 'Tenant should deposit downPayment plus first month rent');
+        payable(landlord).transfer(monthlyRent);
         status = Status.Acepted;
         startDate = block.timestamp;
     }
