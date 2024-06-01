@@ -46,7 +46,7 @@ const DynamicForm = ({
       });
       const data = await res.json();
       setContractDeployData({
-        contractLink: data.data.linkToBlockExplorer,
+        contractLink: data.data.linkToContract,
         contractAddress: data.data.contractAddress,
         abi: data.data.abi,
       });
