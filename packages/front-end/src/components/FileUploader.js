@@ -19,13 +19,10 @@ const FileUploader = ({ onUpload }) => {
   });
 
   const buttons = (
-    <div className="mr-[40px]">
+    <div className="mr-4">
       {document?.content && (
         <Button
           className="m-[10px]"
-          variant="outline"
-          colorScheme="black"
-          bg="white"
           onClick={() => resetDocument()}
           fontFamily="mulish"
         >
@@ -33,10 +30,9 @@ const FileUploader = ({ onUpload }) => {
         </Button>
       )}
       <Button
-        variant="outline"
+        className="text-white bg-darkGreen hover:bg-opacity-80 transition ease-in-out duration-500 "
         colorScheme="black"
         isDisabled={!document?.content}
-        bg="white"
         onClick={() => onUpload(document)}
       >
         Generate
@@ -48,7 +44,7 @@ const FileUploader = ({ onUpload }) => {
     <div className="w-full h-full">
       <div
         {...getRootProps()}
-        className={`w-[603px] h-[240px] p-4 border-[1px] border-dashed border-black rounded-lg cursor-pointer mb-2 flex justify-center items-center hover:bg-fairGreen hover:bg-opacity-60 ${
+        className={`w-[603px] h-[240px] p-4 border-[1px] border-dashed border-black rounded-lg cursor-pointer mb-2 flex justify-center items-center hover:bg-fairGreen hover:bg-opacity-60 transition ease-in-out duration-500 ${
           isDragActive ? "bg-fairGreen bg-opacity-60" : ""
         }`}
       >

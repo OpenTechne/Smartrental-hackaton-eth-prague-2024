@@ -48,9 +48,8 @@ const DynamicForm = ({ fields, columns, contract, setView }) => {
         setView("NOTIFY");
       }}
       type="submit"
-      variant="outline"
-      bg="#ffffff"
-      className="mr-[40px]"
+      colorScheme="black"
+      className="mr-[40px] text-white bg-darkGreen hover:bg-opacity-80 transition ease-in-out duration-500 "
     >
       Submit
     </Button>

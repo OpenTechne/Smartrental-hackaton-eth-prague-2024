@@ -20,7 +20,7 @@ body {
   font-family: "Mulish", sans-serif;
   justify-content: center;
   align-items: flex-start;
-  color: rgb(var(--foreground-rgb));
+  color: #073032;
   background: #ffffff;
   height: 100vh;
 }
