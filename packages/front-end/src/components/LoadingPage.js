@@ -4,10 +4,10 @@ import PageWrapper from "./PageWrapper";
 
 import Image from "next/image";
 
-const LoadingPage = () => {
+const LoadingPage = ({ loadingMessage }) => {
   const body = (
     <div className="w-full h-[150px] flex flex-col justify-center items-center rounded-lg mt-8">
-      <p>Your smart contract is being generated. This may take a while.</p>
+      <p>{loadingMessage}</p>
       <Image
         src="/loading.svg"
         height={48}

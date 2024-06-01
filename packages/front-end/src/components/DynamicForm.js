@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import {
   FormControl,
   FormLabel,
@@ -10,17 +10,27 @@ import {
   Box,
   Text,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 
 import PageWrapper from "./PageWrapper";
 
-const DynamicForm = ({ fields, columns, contract, setView }) => {
+const DynamicForm = ({
+  fields,
+  columns,
+  contract,
+  setView,
+  setContractDeployData,
+  setLoadingMessage,
+}) => {
   const { register, getValues } = useForm();
+  const toast = useToast();
   const [network, setNetwork] = useState("Polygon Amoy");
 
   const handleSubmit = async () => {
+    setView("LOADING");
+    setLoadingMessage("Your smart contract is being deployed...");
     const values = getValues();
-    console.log(values);
     try {
       const res = await fetch("/api/deploy", {
         method: "POST",
@@ -29,30 +39,51 @@ const DynamicForm = ({ fields, columns, contract, setView }) => {
         },
         body: JSON.stringify({
           chainName: network,
-          contract,
-          constructorArguments: [Object.values(values)],
+          bytecode: contract.bytecode,
+          abi: contract.abi,
+          constructorArguments: Object.values(values),
         }),
       });
-      console.log(res);
+      const data = await res.json();
+      setContractDeployData({
+        contractLink: data.data.linkToBlockExplorer,
+        contractAddress: data.data.contractAddress,
+        abi: data.data.abi,
+      });
+      setView("NOTIFY");
     } catch (error) {
       console.error(error);
-    } finally {
-      setView("NOTIFY");
+      setView("UPLOAD");
+      toast({
+        title: "There was an error deploying your smart contract",
+        duration: 3000,
+        status: "error",
+        position: "bottom-right",
+        variant: "subtle",
+      });
     }
   };
 
   const button = (
-    <Button
-      onClick={() => {
-        handleSubmit();
-        setView("NOTIFY");
-      }}
-      type="submit"
-      colorScheme="black"
-      className="mr-[40px] text-white bg-darkGreen hover:bg-opacity-80 transition ease-in-out duration-500 "
-    >
-      Submit
-    </Button>
+    <div className="mr-4">
+      <Button
+        className="m-[10px]"
+        onClick={() => setView("UPLOAD")}
+        fontFamily="mulish"
+      >
+        Cancel
+      </Button>
+      <Button
+        onClick={() => {
+          handleSubmit();
+        }}
+        type="submit"
+        colorScheme="black"
+        className="mr-[40px] text-white bg-darkGreen hover:bg-opacity-80 transition ease-in-out duration-500 "
+      >
+        Submit
+      </Button>
+    </div>
   );
 
   const form = (
@@ -72,6 +103,7 @@ const DynamicForm = ({ fields, columns, contract, setView }) => {
                     background="white"
                     {...register(field.name)}
                     defaultValue={field.value}
+                    placeholder={field.placeholder}
                   />
                 </FormControl>
               );
@@ -88,22 +120,7 @@ const DynamicForm = ({ fields, columns, contract, setView }) => {
                     type="number"
                     {...register(field.name)}
                     defaultValue={field.value}
-                  />
-                </FormControl>
-              );
-            case "date":
-              return (
-                <FormControl
-                  key={field.name}
-                  id={field.name}
-                  isRequired={field.required}
-                >
-                  <FormLabel>{field.label}</FormLabel>
-                  <Input
-                    background="white"
-                    type="date"
-                    {...register(field.name)}
-                    defaultValue={field.value}
+                    placeholder={field.placeholder}
                   />
                 </FormControl>
               );
@@ -128,8 +145,7 @@ const DynamicForm = ({ fields, columns, contract, setView }) => {
         })}
       </Grid>
       <Text mt={3}>
-        For dates use unix timestamp value (number) and specify amounts in
-        Ether.
+        For dates use unix timestamp value (number) and specify amounts in Gwei.
       </Text>
       <Select
         value={network}

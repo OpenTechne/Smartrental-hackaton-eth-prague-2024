@@ -6,286 +6,43 @@ import { useToast } from "@chakra-ui/react";
 import UserEnv from "@/src/components/UserEnv";
 import LoadingPage from "@/src/components/LoadingPage";
 import NotifyPage from "@/src/components/NotifyPage";
+import { set } from "react-hook-form";
 
 export default function Home() {
-  const cont = {
-    message: "Contract deployed successfully",
-    data: {
-      hash: "0x950083c31c762d78fca248b40a11703ca25130dbbafa113d376df6eabaf23b8d",
-      linkToBlockExplorer:
-        "https://sepolia.lineascan.build/tx/0x950083c31c762d78fca248b40a11703ca25130dbbafa113d376df6eabaf23b8d",
-      linkToContract:
-        "https://sepolia.lineascan.build/address/0x72214e2ca2a2da93dae89a9d87a5515d6e836001",
-      contractAddress: "0x72214e2ca2a2da93dae89a9d87a5515d6e836001",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_landlord",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_tenant",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "_downPayment",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_monthlyRent",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_rentalPeriod",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_penaltyInterestRate",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_compensation",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "constructor",
-        },
-        {
-          inputs: [],
-          name: "acceptContract",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "compensation",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "downPayment",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "landlord",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "liquidateDeposit",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "monthlyRent",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "payRent",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "penaltyInterestRate",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "rentalPeriod",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "startDate",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "status",
-          outputs: [
-            {
-              internalType: "enum ResidentialLeaseAgreement.Status",
-              name: "",
-              type: "uint8",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "tenant",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "terminateContract",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "totalPayed",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-      ],
-    },
-  };
   const toast = useToast();
 
   const [contract, setContract] = useState({ abi: [], bytecode: "" });
   const [fields, setFields] = useState([]);
-  const [contractDeployData, setContractDeployData] = useState({
-    //TODO: Change this to default data (empty)
-    contractLink:
-      "https://sepolia.lineascan.build/address/0x72214e2ca2a2da93dae89a9d87a5515d6e836001",
-    contractAddress: "0x72214e2ca2a2da93dae89a9d87a5515d6e836001",
-    abi: [
-      {
-        inputs: [
-          {
-            internalType: "address",
-            name: "_landlord",
-            type: "address",
-          },
-        ],
-      },
-    ],
-  });
+  const [loadingMessage, setLoadingMessage] = useState("");
+  const [contractDeployData, setContractDeployData] = useState(null);
   const [view, setView] = useState("UPLOAD");
 
-  function getFormFieldsFromContract(contractCode) {
-    const constructorRegex = /constructor\s*\(([^)]*)\)/;
-    const match = contractCode.match(constructorRegex);
-
-    if (!match) {
-      throw new Error("No constructor found in the contract");
+  function getFormFieldsFromConstructor(abi) {
+    const constructorAbi = abi.find((item) => item.type === "constructor");
+    if (!constructorAbi) {
+      throw new Error("No constructor found in the ABI");
     }
 
-    const paramsString = match[1].trim();
-    const params = paramsString
-      .split(",")
-      .map((param) => param.trim().split(/\s+/));
-
-    const formFields = params.map((param) => {
-      let [type, name] = param;
-
-      // Handle multiple words in type (e.g., "address payable")
-      if (param.length > 2) {
-        type = param.slice(0, -1).join(" ");
-        name = param[param.length - 1];
-      }
-
-      let fieldType = "input";
-      if (type === "bool") {
-        fieldType = "checkbox";
-      } else if (type === "uint256") {
-        fieldType = "number";
-      } else if (type.startsWith("address")) {
-        fieldType = "input";
+    const formFields = constructorAbi.inputs.map((input) => {
+      let type = "input";
+      if (input.type === "bool") {
+        type = "checkbox";
+      } else if (input.type === "uint256") {
+        type = "number";
+      } else if (input.type === "address") {
+        type = "input";
       }
 
       return {
-        type: fieldType,
-        name: name.replace(/[_\s]+/g, ""),
+        type: type,
+        name: input.name,
         label: `${
-          name.charAt(0).toUpperCase() +
-          name
-            .slice(1)
-            .replace(/([A-Z])/g, " $1")
-            .replace(/[_\s]+/g, " ")
+          input.name.charAt(0).toUpperCase() +
+          input.name.slice(1).replace(/([A-Z])/g, " $1")
         }`,
+        placeholder: input.type,
         required: true,
-        value: fieldType === "checkbox" ? false : "",
+        value: type === "checkbox" ? false : "",
         section: "form",
       };
     });
@@ -294,8 +51,10 @@ export default function Home() {
   }
 
   const generateContract = async (document) => {
-    //console.log("Generating contract from document:", document);
     setView("LOADING");
+    setLoadingMessage(
+      "Your smart contract is being generated. This may take a while."
+    );
 
     try {
       const res = await fetch("/api/generate", {
@@ -314,8 +73,10 @@ export default function Home() {
 
       const data = await res.json();
       const { bytecode, abi } = data;
+      setFields(getFormFieldsFromConstructor(abi));
 
       setContract({ abi, bytecode });
+
       setView("FORM");
     } catch (err) {
       toast({
@@ -329,6 +90,7 @@ export default function Home() {
       setView("UPLOAD");
     }
   };
+
   const onNotify = () => {
     setView("USER_ENV");
   };
@@ -338,7 +100,7 @@ export default function Home() {
       case "UPLOAD":
         return <FileUploader onUpload={generateContract} />;
       case "LOADING":
-        return <LoadingPage />;
+        return <LoadingPage loadingMessage={loadingMessage} />;
       case "FORM":
         return (
           <DynamicForm
@@ -346,6 +108,8 @@ export default function Home() {
             columns={2}
             contract={contract}
             setView={setView}
+            setContractDeployData={setContractDeployData}
+            setLoadingMessage={setLoadingMessage}
           />
         );
       case "NOTIFY":
@@ -353,10 +117,11 @@ export default function Home() {
           <NotifyPage
             contractDeployData={contractDeployData}
             onClick={onNotify}
+            setView={setView}
           />
         );
       case "USER_ENV":
-        return <UserEnv contract={cont} />;
+        return <UserEnv contract={contractDeployData} />;
       case "LOGIN":
         return <div>Login Page</div>; // Add your login component or logic here
       default:

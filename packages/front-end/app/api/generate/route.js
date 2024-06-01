@@ -53,7 +53,6 @@ export async function POST(request) {
       },
     };
     const output = JSON.parse(solc.compile(JSON.stringify(compilerInput)));
-    console.log(output)
     if (Object.keys(output.contracts.source).length === 0) {
       return NextResponse.json(
         { message: "Error while compiling" },
@@ -66,7 +65,7 @@ export async function POST(request) {
     const abi =
       output.contracts.source[Object.keys(output.contracts.source)[0]].abi;
 
-    return NextResponse.json( {bytecode, abi } ,  { status: 200 });
+    return NextResponse.json({ bytecode, abi }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Error while generating", error: error.message },
