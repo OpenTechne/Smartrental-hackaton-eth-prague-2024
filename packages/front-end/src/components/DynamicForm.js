@@ -145,7 +145,7 @@ const DynamicForm = ({
         })}
       </Grid>
       <Text mt={3}>
-        For dates use unix timestamp value (number) and specify amounts in Gwei.
+        For dates use unix timestamp value and specify amounts in Gwei.
       </Text>
       <Select
         value={network}
