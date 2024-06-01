@@ -19,20 +19,11 @@
 
 html,
 body {
-  font-family: "Mulish";
-  height: 100%;
-  overflow: auto;
-  margin: 0;
-}
-
-body {
-  display: flex;
   justify-content: center;
   align-items: flex-start;
   color: rgb(var(--foreground-rgb));
   background: #ffffff;
   height: 100vh;
-  margin-bottom: 100px;
 }
 
 @layer utilities {
