@@ -1,5 +1,6 @@
 // components/Header.js
 import Image from "next/image";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
 const Header = ({ setActiveSection }) => {
   const [activeSection, setActiveSectionState] = useState("contract");

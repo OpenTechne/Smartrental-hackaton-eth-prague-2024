@@ -1,21 +1,38 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DynamicForm from "../src/components/DynamicForm";
 import FileUploader from "../src/components/FileUploader";
 import { useToast } from "@chakra-ui/react";
 import UserEnv from "@/src/components/UserEnv";
 import LoadingPage from "@/src/components/LoadingPage";
 import NotifyPage from "@/src/components/NotifyPage";
-import { set } from "react-hook-form";
+import { useAccount } from "wagmi";
 
 export default function Home() {
   const toast = useToast();
 
+  const { address, isConnected } = useAccount();
+  console.log(isConnected);
   const [contract, setContract] = useState({ abi: [], bytecode: "" });
   const [fields, setFields] = useState([]);
   const [loadingMessage, setLoadingMessage] = useState("");
   const [contractDeployData, setContractDeployData] = useState(null);
-  const [view, setView] = useState("UPLOAD");
+  const [view, setView] = useState("USER_ENV");
+
+  useEffect(() => {
+    if (isConnected && view !== "USER_ENV") {
+      setView("USER_ENV");
+    }
+    if (!isConnected && view !== "UPLOAD") {
+      setView("UPLOAD");
+    }
+  }, [isConnected]);
+
+  if (!isConnected) {
+    if (view !== "UPLOAD") {
+      setView("UPLOAD");
+    }
+  }
 
   function getFormFieldsFromConstructor(abi) {
     const constructorAbi = abi.find((item) => item.type === "constructor");

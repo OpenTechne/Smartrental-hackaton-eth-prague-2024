@@ -4,28 +4,25 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 import { Button, Input } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
-
-const NotifyPage = ({ contractDeployData, onClick, setView }) => {
-  const [tenantEmail, setTenantEmail] = useState("");
+const NotifyPage = ({ contractDeployData }) => {
   const buttons = (
-    <div className="mr-4">
+    <div className="mr-[40px]">
       <Button
         className="m-[10px]"
-        onClick={() => {
-          setTenantEmail("");
-          setView("UPLOAD");
-        }}
-        fontFamily="mulish"
-      >
-        Cancel
-      </Button>
-      <Button
-        className="text-white bg-darkGreen hover:bg-opacity-80 transition ease-in-out duration-500 "
+        variant="outline"
         colorScheme="black"
-        disabled={!tenantEmail}
+        bg="white"
         onClick={onClick}
       >
         Notify
+      </Button>
+      <Button
+        variant="outline"
+        color="grayText"
+        bg="white"
+        // onClick={() => setTenantEmail()}
+      >
+        Cancel
       </Button>
     </div>
   );
@@ -46,12 +43,8 @@ const NotifyPage = ({ contractDeployData, onClick, setView }) => {
       <Input
         placeholder="Enter your tenant’s email here..."
         size="lg"
-        type="email"
         className="text-center my-[20px] border-black"
         width="350px"
-        bg="white"
-        value={tenantEmail}
-        onChange={(e) => setTenantEmail(e.target.value)}
       />
     </div>
   );

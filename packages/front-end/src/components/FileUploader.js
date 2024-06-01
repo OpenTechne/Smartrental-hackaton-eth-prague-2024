@@ -5,6 +5,7 @@ import { Button } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
 import Image from "next/image";
 import useFileUploader from "../hooks/useFileUploader";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const FileUploader = ({ onUpload }) => {
   const { document, handleFileChange, resetDocument } = useFileUploader();
@@ -75,9 +76,10 @@ const FileUploader = ({ onUpload }) => {
         </div>
         <div className="flex justify-between mt-4 mb-2">
           <span className="font-medium">Do you already have an account?</span>
-          <a href="#" className="underline ">
+          {/* <a href="#" className="underline ">
             Log in with your wallet
-          </a>
+          </a> */}
+          <ConnectButton />
         </div>
       </div>
     </>

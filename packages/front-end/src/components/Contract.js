@@ -1,7 +1,6 @@
 import React from "react";
 
 const Contract = ({ contract }) => {
-  console.log("contract:", contract.contract.data);
   return (
     <div className="flex-1 flex justify-center items-center">
       <h1>Contract Page</h1>
