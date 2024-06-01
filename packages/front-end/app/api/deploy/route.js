@@ -7,9 +7,9 @@ import { privateKeyToAccount } from "viem/accounts";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { chainName, contract, constructorArguments } = body;
+    const { chainName, bytecode, abi , constructorArguments } = body;
 
-    if (!chainName || !contract) {
+    if (!bytecode || !abi) {
       return NextResponse.json(
         { message: "Missing chainName or contract parameter" },
         { status: 400 }
@@ -27,36 +27,6 @@ export async function POST(request) {
         chain = _chain;
       }
     }
-
-    // Compile
-    var solc = require("solc");
-    var compilerInput = {
-      language: "Solidity",
-      sources: {
-        source: {
-          content: contract,
-        },
-      },
-      settings: {
-        outputSelection: {
-          "*": {
-            "*": ["*"],
-          },
-        },
-      },
-    };
-    const output = JSON.parse(solc.compile(JSON.stringify(compilerInput)));
-    if (Object.keys(output.contracts.source).length === 0) {
-      return NextResponse.json(
-        { message: "Error while compiling" },
-        { status: 500 }
-      );
-    }
-    const bytecode =
-      output.contracts.source[Object.keys(output.contracts.source)[0]].evm
-        .bytecode.object;
-    const abi =
-      output.contracts.source[Object.keys(output.contracts.source)[0]].abi;
 
     // Init Wallet client
     const account = privateKeyToAccount(process.env.BE_ACCOUNT_PK);
