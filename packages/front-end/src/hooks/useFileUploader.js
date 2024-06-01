@@ -3,10 +3,9 @@ import { useToast } from "@chakra-ui/react";
 import { pdfjs } from "react-pdf";
 import mammoth from "mammoth";
 import TurndownService from "turndown";
+import { TOAST_DURATION } from "../constants/toast";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
-const TOAST_DURATION = 3000;
 
 const useFileUploader = () => {
   const toast = useToast();
@@ -41,7 +40,6 @@ const useFileUploader = () => {
           const blobUrl = URL.createObjectURL(file);
           const loadingTask = pdfjs.getDocument(blobUrl);
           const pdf = await loadingTask.promise;
-          console.log(pdf);
           const numPages = pdf.numPages;
           let extractedText = "";
 
@@ -55,7 +53,6 @@ const useFileUploader = () => {
           }
 
           content = extractedText;
-          console.log(content);
           URL.revokeObjectURL(blobUrl);
         } else if (
           file.type ===

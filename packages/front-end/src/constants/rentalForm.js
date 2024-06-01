@@ -78,9 +78,3 @@ export const RENTAL_FORM_FIELDS = [
     section: "checkboxes",
   },
 ];
-
-export const RENTAL_FORM_SECTIONS = [
-  { name: "form", title: "Basic Information" },
-  { name: "additionalInfo", title: "Additional Information" },
-  { name: "checkboxes", title: "Agreements" },
-];
