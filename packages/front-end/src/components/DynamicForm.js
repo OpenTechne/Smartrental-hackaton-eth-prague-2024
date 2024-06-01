@@ -79,7 +79,7 @@ const DynamicForm = ({
         }}
         type="submit"
         colorScheme="black"
-        className="mr-[40px] text-white bg-darkGreen hover:bg-opacity-80 transition ease-in-out duration-500 "
+        className="text-white bg-darkGreen hover:bg-opacity-80 transition ease-in-out duration-500 "
       >
         Submit
       </Button>
