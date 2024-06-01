@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   FormControl,
@@ -10,12 +10,14 @@ import {
   Grid,
   Box,
   Text,
+  Select,
 } from "@chakra-ui/react";
 
 import PageWrapper from "./PageWrapper";
 
 const DynamicForm = ({ fields, onSubmit, columns }) => {
   const { register, handleSubmit } = useForm();
+  const [network, setNetwork] = useState("Polygon Amoy");
 
   const button = (
     <Button type="submit" variant="outline" bg="#ffffff" className="mr-[40px]">
@@ -23,6 +25,7 @@ const DynamicForm = ({ fields, onSubmit, columns }) => {
     </Button>
   );
 
+  console.log(network);
   const form = (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box mb={8}>
@@ -96,10 +99,23 @@ const DynamicForm = ({ fields, onSubmit, columns }) => {
             }
           })}
         </Grid>
-        <Text>
+        <Text mt={3}>
           For dates use unix timestamp value (number) and specify amounts in
           Ether.
         </Text>
+        <Select
+          value={network}
+          bg="white"
+          onChange={(e) => setNetwork(e.target.value)}
+          mt={4}
+          placeholder="Select network for deployment"
+        >
+          <option value="Polygon Amoy">Polygon Amoy</option>
+          <option value="Polygon zkEVM Cardona">Polygon zkEVM Cardona</option>
+          <option value="Linea Sepolia Testnet">Linea Sepolia Testnet</option>
+          <option value="OP Sepolia">OP Sepolia</option>
+          <option value="Mantle Sepolia Testnet">Mantle Sepolia Testnet</option>
+        </Select>
       </Box>
     </form>
   );
