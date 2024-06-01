@@ -47,32 +47,38 @@ const FileUploader = ({ onUpload }) => {
     <div className="w-full h-full">
       <div
         {...getRootProps()}
-        className=" h-[240px] p-4 border-2 border-dashed border-black rounded-lg cursor-pointer mb-2 flex justify-center items-center"
+        className={`w-[603px] h-[240px] p-4 border-[1px] border-dashed border-black rounded-lg cursor-pointer mb-2 flex justify-center items-center hover:bg-fairGreen hover:bg-opacity-60 ${
+          isDragActive ? "bg-fairGreen bg-opacity-60" : ""
+        }`}
       >
-        <input {...getInputProps()} />
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
           <div className="flex flex-col items-center justify-center">
             <Image alt="cloud" src="/cloud.svg" width="48" height="48" />
             <div className="flex flex-col justify-center items-center mt-[20px]">
-              <p>Drag and drop file here or click to browse</p>
-              <p className="text-grayText text-sm">Word or PDF</p>
+              {document?.content ? (
+                <>
+                  <h3 className="font-bold mb-2">Uploaded file:</h3>
+                  <span className="text-center">{document.name}</span>
+                </>
+              ) : (
+                <>
+                  <p className="mb-2">
+                    Drag and drop file here or click to browse
+                  </p>
+                  <p className="text-grayText text-sm">Word or PDF</p>
+                </>
+              )}
             </div>
           </div>
         )}
       </div>
-      <div className="file-list">
-        {document?.content && (
-          <>
-            <h3>Uploaded file:</h3>
-            <ul>
-              <li key={document.name}>
-                <span>{document.name}</span>
-              </li>
-            </ul>
-          </>
-        )}
+      <div className="flex justify-between mt-4 mb-2">
+        <span className="font-medium">Do you already have an account?</span>
+        <a href="#" className="underline ">
+          Log in with your wallet
+        </a>
       </div>
     </div>
   );
