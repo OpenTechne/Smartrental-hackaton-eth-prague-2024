@@ -20,15 +20,17 @@ const FileUploader = ({ onUpload }) => {
 
   const buttons = (
     <div className="mr-[40px]">
-      <Button
-        className="m-[10px]"
-        variant="outline"
-        colorScheme="black"
-        bg="white"
-        onClick={() => resetDocument()}
-      >
-        Cancel
-      </Button>
+      {document?.content && (
+        <Button
+          className="m-[10px]"
+          variant="outline"
+          colorScheme="black"
+          bg="white"
+          onClick={() => resetDocument()}
+        >
+          Cancel
+        </Button>
+      )}
       <Button
         variant="outline"
         colorScheme="black"
@@ -55,7 +57,7 @@ const FileUploader = ({ onUpload }) => {
             <Image alt="cloud" src="/cloud.svg" width="48" height="48" />
             <div className="flex flex-col justify-center items-center mt-[20px]">
               <p>Drag and drop file here or click to browse</p>
-              <p className="text-grayText">Word or PDF</p>
+              <p className="text-grayText text-sm">Word or PDF</p>
             </div>
           </div>
         )}
@@ -63,7 +65,7 @@ const FileUploader = ({ onUpload }) => {
       <div className="file-list">
         {document?.content && (
           <>
-            <h3>Uploaded Files:</h3>
+            <h3>Uploaded file:</h3>
             <ul>
               <li key={document.name}>
                 <span>{document.name}</span>
