@@ -10,7 +10,7 @@ import NotifyPage from "@/src/components/NotifyPage";
 export default function Home() {
   const toast = useToast();
 
-  const [contract, setContract] = useState(undefined);
+  const [contract, setContract] = useState({abi: [], bytecode: ""});
   const [fields, setFields] = useState([]);
   const [contractDeployData, setContractDeployData] = useState({
     //TODO: Change this to default data (empty)
@@ -82,7 +82,7 @@ export default function Home() {
   }
 
   const generateContract = async (document) => {
-    console.log("Generating contract from document:", document);
+    //console.log("Generating contract from document:", document);
     setView("LOADING");
 
     try {
@@ -101,10 +101,9 @@ export default function Home() {
       }
 
       const data = await res.json();
-      const result = data.content[0].text;
+      const {bytecode, abi } =  data;
 
-      setContract(result);
-      setFields(getFormFieldsFromContract(result));
+      setContract({abi, bytecode});
       setView("FORM");
     } catch (err) {
       toast({

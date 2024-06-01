@@ -33,9 +33,40 @@ export async function POST(request) {
         },
       ],
     });
+    const contract = msg.content[0].text;
 
-    console.log(msg);
-    return NextResponse.json(msg, { status: 200 });
+    // Compile
+    var solc = require("solc");
+    var compilerInput = {
+      language: "Solidity",
+      sources: {
+        source: {
+          content: contract,
+        },
+      },
+      settings: {
+        outputSelection: {
+          "*": {
+            "*": ["*"],
+          },
+        },
+      },
+    };
+    const output = JSON.parse(solc.compile(JSON.stringify(compilerInput)));
+    console.log(output)
+    if (Object.keys(output.contracts.source).length === 0) {
+      return NextResponse.json(
+        { message: "Error while compiling" },
+        { status: 500 }
+      );
+    }
+    const bytecode =
+      output.contracts.source[Object.keys(output.contracts.source)[0]].evm
+        .bytecode.object;
+    const abi =
+      output.contracts.source[Object.keys(output.contracts.source)[0]].abi;
+
+    return NextResponse.json( {bytecode, abi } ,  { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Error while generating", error: error.message },
