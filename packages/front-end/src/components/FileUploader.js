@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
 
 import { Button } from "@chakra-ui/react";
@@ -6,17 +6,11 @@ import PageWrapper from "./PageWrapper";
 import Image from "next/image";
 import useFileUploader from "../hooks/useFileUploader";
 
-const FileUploader = ({ setContract }) => {
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const { isUploading, document, handleFileChange } = useFileUploader();
+const FileUploader = ({ onUpload }) => {
+  const { document, handleFileChange, resetDocument } = useFileUploader();
 
   const onDrop = (acceptedFiles) => {
     handleFileChange(acceptedFiles);
-    setUploadedFiles(acceptedFiles);
-  };
-
-  const uploadContract = () => {
-    setContract(uploadedFiles);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -24,27 +18,27 @@ const FileUploader = ({ setContract }) => {
     accept: ".pdf, .doc, .docx",
   });
 
-  useEffect(() => {
-    console.log("isUploading", isUploading, document);
-  }, [isUploading, document]);
-
   const buttons = (
     <div className="mr-[40px]">
+      {document?.content && (
+        <Button
+          className="m-[10px]"
+          variant="outline"
+          colorScheme="black"
+          bg="white"
+          onClick={() => resetDocument()}
+        >
+          Cancel
+        </Button>
+      )}
       <Button
-        className="m-[10px]"
         variant="outline"
         colorScheme="black"
+        isDisabled={!document?.content}
         bg="white"
+        onClick={() => onUpload(document)}
       >
-        Cancel
-      </Button>
-      <Button
-        variant="outline"
-        color="grayText"
-        bg="white"
-        onClick={() => uploadContract()}
-      >
-        Upload
+        Generate
       </Button>
     </div>
   );
@@ -63,23 +57,19 @@ const FileUploader = ({ setContract }) => {
             <Image alt="cloud" src="/cloud.svg" width="48" height="48" />
             <div className="flex flex-col justify-center items-center mt-[20px]">
               <p>Drag and drop file here or click to browse</p>
-              <p className="text-grayText">
-                JPG, PNG or PDF, file size no more than 10MB
-              </p>
+              <p className="text-grayText text-sm">Word or PDF</p>
             </div>
           </div>
         )}
       </div>
       <div className="file-list">
-        {uploadedFiles.length > 0 && (
+        {document?.content && (
           <>
-            <h3>Uploaded Files:</h3>
+            <h3>Uploaded file:</h3>
             <ul>
-              {uploadedFiles.map((file, index) => (
-                <li key={index}>
-                  <span>{file.name}</span>
-                </li>
-              ))}
+              <li key={document.name}>
+                <span>{document.name}</span>
+              </li>
             </ul>
           </>
         )}
