@@ -34,8 +34,8 @@ export default function Home() {
       columns={2}
     />
   ) : (
-    // <FileUploader setContract={setContract} />
-    <LoadingPage />
+    <FileUploader setContract={setContract} />
+    // <LoadingPage />
     // <UserEnv />
   );
 }
