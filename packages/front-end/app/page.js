@@ -3,9 +3,7 @@ import { useState } from "react";
 import DynamicForm from "../src/components/DynamicForm";
 import FileUploader from "../src/components/FileUploader";
 import { useToast } from "@chakra-ui/react";
-
 import UserEnv from "@/src/components/UserEnv";
-
 import LoadingPage from "@/src/components/LoadingPage";
 import NotifyPage from "@/src/components/NotifyPage";
 
@@ -14,7 +12,7 @@ export default function Home() {
 
   const [contract, setContract] = useState(undefined);
   const [fields, setFields] = useState([]);
-  const [view, setView] = useState("UPLOAD");
+  const [view, setView] = useState("USER_ENV");
 
   function getFormFieldsFromContract(contractCode) {
     const constructorRegex = /constructor\s*\(([^)]*)\)/;
@@ -67,6 +65,7 @@ export default function Home() {
   }
 
   const generateContract = async (document) => {
+    console.log("Generating contract from document:", document);
     setView("LOADING");
 
     try {
@@ -102,6 +101,9 @@ export default function Home() {
       setView("UPLOAD");
     }
   };
+  const onNotify = () => {
+    setView("USER_ENV");
+  };
 
   const renderView = () => {
     switch (view) {
@@ -119,13 +121,9 @@ export default function Home() {
           />
         );
       case "NOTIFY":
-        return <NotifyPage />;
+        return <NotifyPage onClick={onNotify} />;
       case "USER_ENV":
         return <UserEnv />;
-      case "LOGIN":
-        return <div>Login Page</div>; // Add your login component or logic here
-      default:
-        return <div>Invalid view</div>;
     }
   };
 

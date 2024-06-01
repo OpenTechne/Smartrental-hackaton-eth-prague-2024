@@ -42,7 +42,11 @@ const DynamicForm = ({ fields, columns, contract, setView }) => {
 
   const button = (
     <Button
-      onClick={handleSubmit}
+      onClick={() => {
+        handleSubmit();
+        setView("NOTIFY");
+      }}
+      type="submit"
       variant="outline"
       bg="#ffffff"
       className="mr-[40px]"
