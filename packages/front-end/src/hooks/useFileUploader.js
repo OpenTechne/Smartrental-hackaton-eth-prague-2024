@@ -35,7 +35,6 @@ const useFileUploader = () => {
     reader.onload = async (event) => {
       const result = event.target?.result;
 
-      console.log(result);
       let content = "";
       try {
         if (file.type === "application/pdf") {
@@ -91,7 +90,11 @@ const useFileUploader = () => {
     };
   };
 
-  return { isUploading, document, handleFileChange };
+  const resetDocument = () => {
+    setDocument(null);
+  };
+
+  return { isUploading, document, handleFileChange, resetDocument };
 };
 
 export default useFileUploader;
