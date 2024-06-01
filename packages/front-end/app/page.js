@@ -4,6 +4,9 @@ import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import DynamicForm from "../src/components/DynamicForm";
 import FileUploader from "../src/components/FileUploader";
 import LoadingPage from "@/src/components/LoadingPage";
+
+import UserEnv from "@/src/components/UserEnv";
+
 import {
   RENTAL_FORM_FIELDS,
   RENTAL_FORM_SECTIONS,
@@ -31,7 +34,8 @@ export default function Home() {
       columns={2}
     />
   ) : (
-    <FileUploader setContract={setContract} />
+    // <FileUploader setContract={setContract} />
     // <LoadingPage />
+    <UserEnv />
   );
 }
