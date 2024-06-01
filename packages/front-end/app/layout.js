@@ -6,26 +6,20 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { ThemeModeScript } from "flowbite-react";
+import {SUPPORTED_CHAINS} from "./constants";
 
 // RainbowKit imports
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
-import {
-  polygonAmoy,
-  lineaSepolia,
-  optimismSepolia,
-  mantleSepoliaTestnet,
-} from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 // RainbowKit config
 const config = getDefaultConfig({
   appName: "My RainbowKit App", // TODO: TBD
   projectId: "YOUR_PROJECT_ID", // TODO: TBD
-  chains: [polygonAmoy, lineaSepolia, optimismSepolia, mantleSepoliaTestnet],
+  chains: SUPPORTED_CHAINS,
   ssr: false, // If your dApp uses server side rendering (SSR)
 });
 
