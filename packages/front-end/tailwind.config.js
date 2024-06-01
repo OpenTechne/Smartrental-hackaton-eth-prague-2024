@@ -8,8 +8,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        opacity: "url('/Bg-opacity.webp')",
-        grid: "url('/Bg-grid.webp')",
+        grid: "url('/Bg-image.webp')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
