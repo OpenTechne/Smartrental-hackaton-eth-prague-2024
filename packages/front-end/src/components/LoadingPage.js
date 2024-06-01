@@ -14,6 +14,7 @@ const LoadingPage = () => {
         height={48}
         width={48}
         className="animate-spin mt-[25px]"
+        alt="Loading spinner"
       />
     </div>
   );
