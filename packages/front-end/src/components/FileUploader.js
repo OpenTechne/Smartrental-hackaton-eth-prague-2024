@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import { Button } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
 import Image from "next/image";
+import useFileUploader from "../hooks/useFileUploader";
 
 const FileUploader = ({ setContract }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const { isUploading, document, handleFileChange } = useFileUploader();
+
   const onDrop = (acceptedFiles) => {
+    handleFileChange(acceptedFiles);
     setUploadedFiles(acceptedFiles);
   };
 
@@ -19,6 +23,10 @@ const FileUploader = ({ setContract }) => {
     onDrop,
     accept: ".pdf, .doc, .docx",
   });
+
+  useEffect(() => {
+    console.log("isUploading", isUploading, document);
+  }, [isUploading, document]);
 
   const buttons = (
     <div className="mr-[40px]">
