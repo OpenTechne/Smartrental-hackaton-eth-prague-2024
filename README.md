@@ -46,3 +46,23 @@ UI:
    5.1. The contract. You can change some properties of the contract. AI chatbot that can edit the contract.
    5.2. BONUS: Requests. The tenant can request changes or repairs of the apartment. If he paid for a repair himself he can upload the reciept and upon confirmation from the landlord it gets covered.
    5.3. BONUS: Communication channel/messenger.
+
+#### API Endpoints
+
+* /api/deploy json body:
+  ```json
+  {
+	  "chainName": "<chain name string>",
+	  "contract": "<solidity Code of the contract>",
+    "constructorArguments" : "<Array of constructor arguments>"
+  }
+  ```
+
+* /api/generate json body:  ,  
+  ```json
+  {
+	  "info": "<Extra prompt info>",
+	  "agreement": "<Contract parsed as string>"
+  }
+  ```
+
