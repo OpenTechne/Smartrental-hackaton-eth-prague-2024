@@ -3,6 +3,7 @@ import { useState } from "react";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import DynamicForm from "../src/components/DynamicForm";
 import FileUploader from "../src/components/FileUploader";
+import LoadingPage from "@/src/components/LoadingPage";
 import {
   RENTAL_FORM_FIELDS,
   RENTAL_FORM_SECTIONS,
@@ -31,5 +32,6 @@ export default function Home() {
     />
   ) : (
     <FileUploader setContract={setContract} />
+    // <LoadingPage />
   );
 }
