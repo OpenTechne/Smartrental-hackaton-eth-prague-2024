@@ -7,13 +7,10 @@ import { useToast } from "@chakra-ui/react";
 import UserEnv from "@/src/components/UserEnv";
 
 import LoadingPage from "@/src/components/LoadingPage";
+import NotifyPage from "@/src/components/NotifyPage";
 
 export default function Home() {
   const toast = useToast();
-
-  const handleSubmit = (data) => {
-    console.log("Form submitted:", data);
-  };
 
   const [contract, setContract] = useState(undefined);
   const [fields, setFields] = useState([]);
@@ -89,7 +86,6 @@ export default function Home() {
 
       const data = await res.json();
       const result = data.content[0].text;
-      console.log(result);
 
       setContract(result);
       setFields(getFormFieldsFromContract(result));
@@ -108,7 +104,6 @@ export default function Home() {
   };
 
   const renderView = () => {
-    console.log(view);
     switch (view) {
       case "UPLOAD":
         return <FileUploader onUpload={generateContract} />;
@@ -116,7 +111,12 @@ export default function Home() {
         return <LoadingPage />;
       case "FORM":
         return (
-          <DynamicForm fields={fields} onSubmit={handleSubmit} columns={2} />
+          <DynamicForm
+            fields={fields}
+            columns={2}
+            contract={contract}
+            setView={setView}
+          />
         );
       case "NOTIFY":
         return <NotifyPage />;

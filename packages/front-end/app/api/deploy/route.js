@@ -1,12 +1,7 @@
 import { NextResponse } from "next/server";
 import { SUPPORTED_CHAINS } from "./../../constants";
 
-import {
-  createWalletClient,
-  http,
-  publicActions,
-  encodeAbiParameters,
-} from "viem";
+import { createWalletClient, http, publicActions } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 export async function POST(request) {
