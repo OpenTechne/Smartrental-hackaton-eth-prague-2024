@@ -6,10 +6,6 @@ import { useToast } from "@chakra-ui/react";
 
 import UserEnv from "@/src/components/UserEnv";
 
-import {
-  RENTAL_FORM_FIELDS,
-  RENTAL_FORM_SECTIONS,
-} from "../src/constants/rentalForm";
 import LoadingPage from "@/src/components/LoadingPage";
 
 export default function Home() {
