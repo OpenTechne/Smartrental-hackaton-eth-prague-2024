@@ -20,6 +20,7 @@ export default {
         fairGreen: "#C0ED54",
         capuccino: "#FCF1F0",
         grayText: "#767676",
+        darkGreen: "#073032",
       },
     },
   },

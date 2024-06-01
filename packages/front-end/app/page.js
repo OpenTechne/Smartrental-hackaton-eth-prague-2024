@@ -364,5 +364,5 @@ export default function Home() {
     }
   };
 
-  return <div>{renderView()}</div>;
+  return <>{renderView()}</>;
 }

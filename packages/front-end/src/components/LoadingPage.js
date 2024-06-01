@@ -6,8 +6,7 @@ import Image from "next/image";
 
 const LoadingPage = () => {
   const body = (
-    <div className="w-full h-[150px] flex flex-col justify-center items-center border-[1px] border-dashed border-black rounded-lg mt-8">
-      {/* <p>Wait a second please.</p> */}
+    <div className="w-full h-[150px] flex flex-col justify-center items-center rounded-lg mt-8">
       <p>Your smart contract is being generated. This may take a while.</p>
       <Image
         src="/loading.svg"
