@@ -55,7 +55,7 @@ UI:
 	  "chainName": "<chain name string>",
 	  "contract": "<solidity Code of the contract>",
     "constructorArguments" : "<Array of constructor arguments>"
-  }
+   }
   ```
 
 * /api/generate json body:  ,  
