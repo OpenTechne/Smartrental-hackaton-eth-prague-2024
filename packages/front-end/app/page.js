@@ -29,7 +29,6 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          info: "Random text",
           agreement: document.content,
         }),
       });
