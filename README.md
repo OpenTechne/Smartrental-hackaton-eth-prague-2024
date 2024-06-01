@@ -8,11 +8,12 @@
 ### UI architecture
 
 ### Tech Stack
-* Front-end
-    * https://nextjs.org/
-    * https://www.rainbowkit.com/
-    * https://flowbite-react.com/
-    * https://wagmi.sh/
+
+- Front-end
+  - https://nextjs.org/
+  - https://www.rainbowkit.com/
+  - https://flowbite-react.com/
+  - https://wagmi.sh/
 
 #### Workflow
 
@@ -30,6 +31,14 @@ ating and Review System
 Checkboxes:
 1.1. The deposit is in ETH, if it grows part of the rent can be paid with the capital gains. The deposit is held in the SC.
 1.2. The rent price is adjusted based on the infation. 2. Ferification form page, where the landlord can check that the smart contract was created correctly. But the UI is a human readable form, not a SC itself. Use AI to describe the smart contract. 3. The form is sent to a tenant where he can confirm the correcness of the conditions or propose changes. 4. After they both accept the conditions the smart contract is saved and later its deployed on the chain.
+
+UI:
+
+1. DnD the contract or button to upload the contract
+   -after upload short animation ("We are transformung your contract into your smart contract")
+2. Form with information distracted from the contract. You can see and modify things
+3. Conntect the wallet - send it to the tennant to confirm
+4. Deploying
 
 ##### Environment
 

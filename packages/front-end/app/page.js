@@ -1,20 +1,41 @@
-import Image from "next/image";
-import { Button } from "flowbite-react";
+"use client";
+import { useState } from "react";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
+import DynamicForm from "../src/components/DynamicForm";
+import FileUploader from "../src/components/FileUploader";
+import LoadingPage from "@/src/components/LoadingPage";
+
+import UserEnv from "@/src/components/UserEnv";
+
+import {
+  RENTAL_FORM_FIELDS,
+  RENTAL_FORM_SECTIONS,
+} from "../src/constants/rentalForm";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold text-white-800 mb-4">
-        Welcome to Open Workspaces
-      </h1>
-      <h2 className="text-4xl font-bold text-white-800 mb-4">
-        Decentralized Coworking Spaces Management Platform
-      </h2>
-      <p className="text-gray-600 mb-6">
-        Open Workspaces is the new way to fund and support coworking spaces.
-        Join a community of entrepreneurs, freelancers, and remote workers to
-        create the perfect workspace together. Own, Rent or Lease a space.
-      </p>
-    </main>
+  const handleSubmit = (data) => {
+    console.log("Form submitted:", data);
+  };
+
+  const [contract, setContract] = useState(undefined);
+
+  // const contract = true;
+  if (contract) {
+    console.log(contract);
+  } else {
+    console.log("no contract");
+  }
+
+  return contract ? (
+    <DynamicForm
+      fields={RENTAL_FORM_FIELDS}
+      sections={RENTAL_FORM_SECTIONS}
+      onSubmit={handleSubmit}
+      columns={2}
+    />
+  ) : (
+    // <FileUploader setContract={setContract} />
+    // <LoadingPage />
+    <UserEnv />
   );
 }
