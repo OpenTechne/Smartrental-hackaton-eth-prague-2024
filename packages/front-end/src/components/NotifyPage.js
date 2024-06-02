@@ -4,7 +4,8 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 import { Button, Input } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
-const NotifyPage = ({ contractDeployData }) => {
+
+const NotifyPage = ({ contractDeployData, onClick }) => {
   const buttons = (
     <div className="mr-[40px]">
       <Button
