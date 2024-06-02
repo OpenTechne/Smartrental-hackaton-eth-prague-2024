@@ -38,7 +38,6 @@ export async function POST(request) {
     });
     const contract = msg.content[0].text;
 
-    console.log(contract)
 
     // Compile
     var solc = require("solc");
@@ -59,7 +58,6 @@ export async function POST(request) {
     };
     const output = JSON.parse(solc.compile(JSON.stringify(compilerInput)));
 
-    console.log(output);
     if (Object.keys(output.contracts.source).length === 0) {
       return NextResponse.json(
         { message: "Error while compiling" },

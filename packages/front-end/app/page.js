@@ -13,14 +13,12 @@ export default function Home() {
   const toast = useToast();
 
   const { address, isConnected } = useAccount();
-  console.log(isConnected);
   const [contract, setContract] = useState({ abi: [], bytecode: "" });
   const [fields, setFields] = useState([]);
   const [loadingMessage, setLoadingMessage] = useState("");
   const [contractDeployData, setContractDeployData] = useState(null);
   const [view, setView] = useState("UPLOAD");
   const { document, handleFileChange, resetDocument } = useFileUploader();
-  console.log(document);
 
   useEffect(() => {
     if (isConnected && view !== "USER_ENV") {
