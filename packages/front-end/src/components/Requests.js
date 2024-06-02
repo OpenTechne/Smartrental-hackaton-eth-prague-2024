@@ -1,9 +1,10 @@
 import React from "react";
+import Image from "next/image";
 
 const Requests = () => {
   return (
     <div className="flex-1 flex justify-center items-center">
-      <h1>Requests Page</h1>
+      <Image src="/requests.png" width={900} height={600} />
     </div>
   );
 };
