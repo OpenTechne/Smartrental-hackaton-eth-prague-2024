@@ -22,12 +22,14 @@ const UserEnv = (contract) => {
   };
 
   return (
-    <div className="w-screen h-screen bg-capuccino flex relative">
+    <div className="w-screen h-screen bg-white flex relative">
       <Header setActiveSection={setActiveSection} />
       <div className="absolute right-[30px] top-[30px]">
         <ConnectButton />
       </div>
-      {renderSection()}
+      <div className=" flex w-screen justify-center self-center">
+        {renderSection()}
+      </div>
     </div>
   );
 };
