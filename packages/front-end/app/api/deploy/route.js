@@ -7,7 +7,7 @@ import { privateKeyToAccount } from "viem/accounts";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { chainName, bytecode, abi , constructorArguments } = body;
+    const { chainName, bytecode, abi, constructorArguments } = body;
 
     if (!bytecode || !abi) {
       return NextResponse.json(
@@ -51,43 +51,25 @@ export async function POST(request) {
       );
     }
 
-    // If chain has block explorer generate links
+    // // If chain has block explorer generate links
     let linkToBlockExplorer = hash;
     let linkToContract = "";
-
     if ("blockExplorers" in chain) {
       linkToBlockExplorer = `${chain.blockExplorers.default.url}/tx/${hash}`;
       linkToContract = `${chain.blockExplorers.default.url}/address/${receipt.contractAddress}`;
-
-      // Verify contract
-      // Search constructor abi in the abi
-      // let constructorInputs = [];
-      // for (const _function of abi) {
-      //   if (_function.type === "constructor") {
-      //     constructorInputs = _function.inputs;
-      //   }
-      // }
-      // const constructorArgs = encodeAbiParameters(
-      //   constructorInputs,
-      //   constructorArguments
-      // );
-      // const verificationResponse = await fetch(
-      //   `${chain.blockExplorers.default.apiUrl}
-      //     ?module=contract
-      //     &action=verifysourcecode
-      //     &apikey=${process.env.ETHERSCAN_API_TOKEN}
-      //     &chainId=${chain.id}
-      //     &sourceCode=${compilerInput}
-      //     &constructorArguments=${constructorArgs}
-      //     &contractaddress=${receipt.contractAddress}
-      //     &compilerversion=v0.8.19+commit.7dd6d404
-      //     &contractname=contracts/source:${
-      //       Object.keys(output.contracts.source)[0]
-      //     }
-      //     `,
-      //   { method: "POST" }
-      // );
     }
+
+    // Store ABI in the database
+    const fs = require("fs");
+    const dbPath = "./eth-database.json";
+    let db = {};
+    const data = fs.readFileSync(dbPath, "utf8");
+    db = JSON.parse(data);
+    if (!db.hasOwnProperty(chain.id)) {
+      db[chain.id] = {};
+    }
+    db[chain.id][receipt.contractAddress] = abi;
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), "utf8");
 
     return NextResponse.json(
       {
