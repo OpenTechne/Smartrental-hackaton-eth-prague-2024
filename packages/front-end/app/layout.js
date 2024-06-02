@@ -8,7 +8,11 @@ import { SUPPORTED_CHAINS } from "./constants";
 
 // RainbowKit imports
 import "@rainbow-me/rainbowkit/styles.css";
-import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import {
+  getDefaultConfig,
+  RainbowKitProvider,
+  lightTheme,
+} from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
@@ -36,7 +40,13 @@ export default function RootLayout({ children }) {
       <body>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider>
+            <RainbowKitProvider
+              theme={lightTheme({
+                accentColor: "#C0ED54",
+                accentColorForeground: "black",
+                borderRadius: "medium",
+              })}
+            >
               <ChakraProvider>
                 <div
                   className={`flex justify-center items-center ${mulish.className}`}
