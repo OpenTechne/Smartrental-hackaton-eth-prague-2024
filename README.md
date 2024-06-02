@@ -8,11 +8,32 @@
 ### UI architecture
 
 ### Tech Stack
+<<<<<<< Updated upstream
 * Front-end
     * https://nextjs.org/
     * https://www.rainbowkit.com/
     * https://flowbite-react.com/
     * https://wagmi.sh/
+=======
+
+- Front-end
+  - https://nextjs.org/
+  - https://www.rainbowkit.com/
+  - https://v2.chakra-ui.com/
+  - https://wagmi.sh/
+>>>>>>> Stashed changes
+
+- Back-end
+  - https://viem.sh/
+  - https://www.anthropic.com/claude
+  - https://github.com/ethereum/solc-js
+
+- Networks supported
+  - polygonAmoy
+  - polygonZkEvmCardona
+  - lineaSepolia
+  - optimismSepolia
+  - mantleSepoliaTestnet
 
 #### Workflow
 
