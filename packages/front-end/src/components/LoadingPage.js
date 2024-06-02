@@ -12,7 +12,7 @@ const LoadingPage = ({ loadingMessage }) => {
         src="/loading.svg"
         height={48}
         width={48}
-        className="animate-spin mt-[25px]"
+        className="animate-spin mt-[50px]"
         alt="Loading spinner"
       />
     </div>

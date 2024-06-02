@@ -7,6 +7,7 @@ import UserEnv from "@/src/components/UserEnv";
 import LoadingPage from "@/src/components/LoadingPage";
 import NotifyPage from "@/src/components/NotifyPage";
 import { useAccount } from "wagmi";
+import useFileUploader from "@/src/hooks/useFileUploader";
 
 export default function Home() {
   const toast = useToast();
@@ -18,21 +19,17 @@ export default function Home() {
   const [loadingMessage, setLoadingMessage] = useState("");
   const [contractDeployData, setContractDeployData] = useState(null);
   const [view, setView] = useState("UPLOAD");
+  const { document, handleFileChange, resetDocument } = useFileUploader();
+  console.log(document);
 
   useEffect(() => {
     if (isConnected && view !== "USER_ENV") {
       setView("USER_ENV");
     }
-    if (!isConnected && view !== "UPLOAD") {
+    if (!isConnected && view !== "UPLOAD" && !document) {
       setView("UPLOAD");
     }
   }, [isConnected]);
-
-  if (!isConnected) {
-    if (view !== "UPLOAD") {
-      setView("UPLOAD");
-    }
-  }
 
   function getFormFieldsFromConstructor(abi) {
     const constructorAbi = abi.find((item) => item.type === "constructor");
@@ -115,7 +112,14 @@ export default function Home() {
   const renderView = () => {
     switch (view) {
       case "UPLOAD":
-        return <FileUploader onUpload={generateContract} />;
+        return (
+          <FileUploader
+            document={document}
+            handleFileChange={handleFileChange}
+            resetDocument={resetDocument}
+            onUpload={generateContract}
+          />
+        );
       case "LOADING":
         return <LoadingPage loadingMessage={loadingMessage} />;
       case "FORM":
@@ -139,8 +143,6 @@ export default function Home() {
         );
       case "USER_ENV":
         return <UserEnv contract={contractDeployData} />;
-      case "LOGIN":
-        return <div>Login Page</div>; // Add your login component or logic here
       default:
         return <div>Invalid view</div>;
     }

@@ -4,12 +4,15 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "@chakra-ui/react";
 import PageWrapper from "./PageWrapper";
 import Image from "next/image";
-import useFileUploader from "../hooks/useFileUploader";
+
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-const FileUploader = ({ onUpload }) => {
-  const { document, handleFileChange, resetDocument } = useFileUploader();
-
+const FileUploader = ({
+  onUpload,
+  document,
+  handleFileChange,
+  resetDocument,
+}) => {
   const onDrop = (acceptedFiles) => {
     handleFileChange(acceptedFiles);
   };
