@@ -27,7 +27,7 @@ const Contract = ({ contract }) => {
     const fetchItems = async () => {
       const viewValues = [];
       for (const _function of contractAbi) {
-        if (_function.stateMutability === "view") {
+        if ( _function.stateMutability === "view" && _function.inputs.length === 0 ) {
           viewValues[_function.name] = await getViewFunctionValue(
             _function.name
           );
@@ -159,7 +159,7 @@ const Contract = ({ contract }) => {
           <Grid templateColumns="repeat(2, 1fr)" gap={6}>
             {contractAbi.map(
               (_function) =>
-                _function.stateMutability === "view" && (
+                _function.stateMutability === "view" && _function.inputs.length === 0 && (
                   <FormControl
                     key={_function.name}
                     id={_function.name}
@@ -171,7 +171,7 @@ const Contract = ({ contract }) => {
                       placeholder={contractViewValues[_function.name]}
                       defaultValue={contractViewValues[_function.name]}
                       isDisabled={true}
-                      bg={ "white"}
+                      bg={"white"}
                     />
                   </FormControl>
                 )
