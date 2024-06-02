@@ -8,20 +8,11 @@
 ### UI architecture
 
 ### Tech Stack
-<<<<<<< Updated upstream
-* Front-end
-    * https://nextjs.org/
-    * https://www.rainbowkit.com/
-    * https://flowbite-react.com/
-    * https://wagmi.sh/
-=======
-
 - Front-end
   - https://nextjs.org/
   - https://www.rainbowkit.com/
   - https://v2.chakra-ui.com/
   - https://wagmi.sh/
->>>>>>> Stashed changes
 
 - Back-end
   - https://viem.sh/
@@ -34,6 +25,7 @@
   - lineaSepolia
   - optimismSepolia
   - mantleSepoliaTestnet
+
 
 #### Workflow
 
@@ -52,9 +44,37 @@ Checkboxes:
 1.1. The deposit is in ETH, if it grows part of the rent can be paid with the capital gains. The deposit is held in the SC.
 1.2. The rent price is adjusted based on the infation. 2. Ferification form page, where the landlord can check that the smart contract was created correctly. But the UI is a human readable form, not a SC itself. Use AI to describe the smart contract. 3. The form is sent to a tenant where he can confirm the correcness of the conditions or propose changes. 4. After they both accept the conditions the smart contract is saved and later its deployed on the chain.
 
+UI:
+
+1. DnD the contract or button to upload the contract
+   -after upload short animation ("We are transformung your contract into your smart contract")
+2. Form with information distracted from the contract. You can see and modify things
+3. Conntect the wallet - send it to the tennant to confirm
+4. Deploying
+
 ##### Environment
 
 5. User environment consists of X sections:
    5.1. The contract. You can change some properties of the contract. AI chatbot that can edit the contract.
    5.2. BONUS: Requests. The tenant can request changes or repairs of the apartment. If he paid for a repair himself he can upload the reciept and upon confirmation from the landlord it gets covered.
    5.3. BONUS: Communication channel/messenger.
+
+#### API Endpoints
+
+* /api/deploy json body:
+  ```json
+  {
+	  "chainName": "<chain name string>",
+	  "contract": "<solidity Code of the contract>",
+    "constructorArguments" : "<Array of constructor arguments>"
+   }
+  ```
+
+* /api/generate json body:  ,  
+  ```json
+  {
+	  "info": "<Extra prompt info>",
+	  "agreement": "<Contract parsed as string>"
+  }
+  ```
+
