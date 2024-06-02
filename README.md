@@ -29,6 +29,8 @@
 
 #### Workflow
 
+![image](./flow.png)
+
 ##### Contract creation
 
 1. Upload PDF/Word contract, that gets translated into the smart contract. BONUS>(Pinata) Pictures and descriptions of the flaws and furniture are added, too. a AI chatbot that helps edit the contract.
