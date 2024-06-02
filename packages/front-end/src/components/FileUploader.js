@@ -74,12 +74,9 @@ const FileUploader = ({ onUpload }) => {
             </div>
           )}
         </div>
-        <div className="flex justify-between mt-4 mb-2">
+        <div className="flex justify-between mt-4 mb-2 items-center">
           <span className="font-medium">Do you already have an account?</span>
-          {/* <a href="#" className="underline ">
-            Log in with your wallet
-          </a> */}
-          <ConnectButton />
+          <ConnectButton label="Log in with your wallet" />
         </div>
       </div>
     </>

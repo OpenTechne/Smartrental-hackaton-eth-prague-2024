@@ -17,7 +17,7 @@ export default function Home() {
   const [fields, setFields] = useState([]);
   const [loadingMessage, setLoadingMessage] = useState("");
   const [contractDeployData, setContractDeployData] = useState(null);
-  const [view, setView] = useState("USER_ENV");
+  const [view, setView] = useState("UPLOAD");
 
   useEffect(() => {
     if (isConnected && view !== "USER_ENV") {
