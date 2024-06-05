@@ -1,11 +1,16 @@
+# Smartrental
+
+## The Ultimate Gateway to On-Chain Rentals
+### [Built at  ETHPrague 2024](https://ethprague2024.devfolio.co/)
+
+[![Smartrental - ETH Prague 2024](http://img.youtube.com/vi/8z3hdfggEhc/0.jpg)](http://www.youtube.com/watch?v=8z3hdfggEhc "Smartrental - ETH Prague 2024")
+
 ### Requirements
 
 - Node.js v20.11.0
   - run: `nvm use`
 - Yarn
   - run: `npm install --global yarn`
-
-### UI architecture
 
 ### Tech Stack
 - Front-end
@@ -27,56 +32,25 @@
   - mantleSepoliaTestnet
 
 
-#### Workflow
+### The problem Smartrental solves
+The problem with conventional real estate paper contracts
 
-![image](./flow.png)
+Crypto-native individuals often face significant challenges when trying to rent properties using their favorite cryptocurrencies. Traditional real estate owners are unfamiliar with crypto terminology and smart contracts, leading to misunderstandings and missed opportunities. This disconnect prevents crypto users from leveraging their digital assets for rental purposes, while property owners miss out on a growing market segment.
+Furthermore, paper contracts and traditional bureaucracy can be unclear and often contain small print that is easily overlooked. This lack of transparency and clarity can lead to disputes and inefficiencies in the rental process.
+Additionally, paper contracts are ineffective in resolving misunderstandings. These issues can be mitigated by incorporating game theory principles and on-chain value systems to create more transparent, fair, and efficient rental agreements.
+Smartrental approach
 
-##### Contract creation
+SmartRental offers a comprehensive solution by translating conventional paper contracts into blockchain-based smart contracts. Key features include:
 
-1. Upload PDF/Word contract, that gets translated into the smart contract. BONUS>(Pinata) Pictures and descriptions of the flaws and furniture are added, too. a AI chatbot that helps edit the contract.
+  - **Automated Contract Translation:** Converts PDF or Word rental contract into Solidity smart contract based on a set of audited Solidity templates, leveraginAutomated Contract Translation:Automated Contract Translation:g the most cutting-edge LLMs on the market.
+  - **Effortless Deployment:** Allows property owner to deploy smart contract without managing private keys.
+  - **User-Friendly Interface:** Simplifies the rental process for both crypto-native tenants and traditional property owners.
+  - **Secure Contracts:** LLMs do not have free will in generating contracts; instead, they use a series of audited templates, applying variations to match the given paper contract.
+  - **Secure Transactions:** AI-generated Solidity contracts are Multi-Chain Contract Verification:Multi-Chain Contract Verification:Multi-Chain Contract Verification: with economic game theories to ensure transparency and security throughout the rental process.
 
--Upload - get a summary - validate contract / Default contract
--Text what to edit
--Login > Submit
+### Challenges we ran into
+During the development of SmartRental, we mainly faced following challenges:
 
-?Digital Signatures: Use blockchain-based digital signatures to verify the authenticity of agreements.
-ating and Review System
-?Reputation System: Implement a decentralized rating system for both landlords and tenants based on past interactions and contract completions.
-Checkboxes:
-1.1. The deposit is in ETH, if it grows part of the rent can be paid with the capital gains. The deposit is held in the SC.
-1.2. The rent price is adjusted based on the infation. 2. Ferification form page, where the landlord can check that the smart contract was created correctly. But the UI is a human readable form, not a SC itself. Use AI to describe the smart contract. 3. The form is sent to a tenant where he can confirm the correcness of the conditions or propose changes. 4. After they both accept the conditions the smart contract is saved and later its deployed on the chain.
-
-UI:
-
-1. DnD the contract or button to upload the contract
-   -after upload short animation ("We are transformung your contract into your smart contract")
-2. Form with information distracted from the contract. You can see and modify things
-3. Conntect the wallet - send it to the tennant to confirm
-4. Deploying
-
-##### Environment
-
-5. User environment consists of X sections:
-   5.1. The contract. You can change some properties of the contract. AI chatbot that can edit the contract.
-   5.2. BONUS: Requests. The tenant can request changes or repairs of the apartment. If he paid for a repair himself he can upload the reciept and upon confirmation from the landlord it gets covered.
-   5.3. BONUS: Communication channel/messenger.
-
-#### API Endpoints
-
-* /api/deploy json body:
-  ```json
-  {
-	  "chainName": "<chain name string>",
-	  "contract": "<solidity Code of the contract>",
-    "constructorArguments" : "<Array of constructor arguments>"
-   }
-  ```
-
-* /api/generate json body:  ,  
-  ```json
-  {
-	  "info": "<Extra prompt info>",
-	  "agreement": "<Contract parsed as string>"
-  }
-  ```
-
+  - **Prompt Engineering for Solidity Code Generation:** One of the major hurdles was tuning the prompt engineering to ensure the generated Solidity code was compilable. This required multiple iterations and extensive testing to achieve the desired level of accuracy and reliability.
+  - **Contract Security Review and Prompt Iteration:** Ensuring the security of the produced code. We conducted multiple rounds of thorough contract reviews to guarantee that the smart contracts met high-security standards. This iterative process was crucial for building trust in our solution and ensuring its reliability.
+  - **Multi-Chain Contract Verification:** Programmatically verifying contracts across multiple blockchain networks presented a significant challenge. We tackled this by integrating with Etherscan-like scanners' APIs, which allowed us to automate the verification process and ensure that contracts were correctly deployed and validated across different chains.
